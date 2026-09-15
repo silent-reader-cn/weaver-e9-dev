@@ -1,0 +1,20 @@
+# 泛微OA 数据表: `wf_fna_rmi_imp`
+
+- **所属模块**: `财务管理`
+- **数据库表名**: `wf_fna_rmi_imp`
+- **字段总数**: `10`
+
+## 表结构定义 (Schema)
+
+| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | `impguid1` | rule_mapitem表对应字段 | `varchar2` | 400 | 是 | - |
+| 2 | `id` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 3 | `ruleid` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 4 | `rulesrc` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 5 | `linkid` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 6 | `rulevarid` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 7 | `formfieldid` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 8 | `rowidenty` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 9 | `nodeid` | rule_mapitem表对应字段 | `integer` | - | 是 | - |
+| 10 | `meetcondition` | rule_mapitem表对应字段 | `integer` | - | 是 | - |

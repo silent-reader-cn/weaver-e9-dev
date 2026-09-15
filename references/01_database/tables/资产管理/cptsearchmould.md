@@ -1,0 +1,130 @@
+# 泛微OA 数据表: `cptsearchmould`
+
+- **所属模块**: `资产管理`
+- **数据库表名**: `cptsearchmould`
+- **字段总数**: `120`
+
+## 表结构定义 (Schema)
+
+| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | `blongsubcompany` | 所属部门 | `integer` | - | 是 | - |
+| 2 | `alertnum` | 告警数量 | `varchar2` | 1000 | 是 | - |
+| 3 | `datafield44` | 自定义日期4 | `varchar2` | 80 | 是 | 自定义日期4 |
+| 4 | `datafield5` | 自定义日期5 | `varchar2` | 80 | 是 | 自定义日期5 |
+| 5 | `datafield55` | 自定义日期5 | `varchar2` | 80 | 是 | 自定义日期5 |
+| 6 | `numberfield1` | 自定义数字1 | `varchar2` | 160 | 是 | 自定义数字1 |
+| 7 | `numberfield11` | 自定义数字1 | `varchar2` | 160 | 是 | 自定义数字1 |
+| 8 | `numberfield2` | 自定义数字2 | `varchar2` | 160 | 是 | 自定义数字2 |
+| 9 | `numberfield22` | 自定义数字2 | `varchar2` | 160 | 是 | 自定义数字2 |
+| 10 | `numberfield3` | 自定义数字3 | `varchar2` | 160 | 是 | 自定义数字3 |
+| 11 | `numberfield33` | 自定义数字3 | `varchar2` | 160 | 是 | 自定义数字3 |
+| 12 | `numberfield4` | 自定义数字4 | `varchar2` | 160 | 是 | 自定义数字4 |
+| 13 | `numberfield44` | 自定义数字4 | `varchar2` | 160 | 是 | 自定义数字4 |
+| 14 | `numberfield5` | 自定义数字5 | `varchar2` | 160 | 是 | 自定义数字5 |
+| 15 | `numberfield55` | 自定义数字5 | `varchar2` | 160 | 是 | 自定义数字5 |
+| 16 | `textfield1` | 自定义文本1 | `varchar2` | 1000 | 是 | 自定义文本1 |
+| 17 | `textfield2` | 自定义文本2 | `varchar2` | 1000 | 是 | 自定义文本2 |
+| 18 | `textfield3` | 自定义文本3 | `varchar2` | 1000 | 是 | 自定义文本3 |
+| 19 | `textfield4` | 自定义文本4 | `varchar2` | 1000 | 是 | 自定义文本4 |
+| 20 | `textfield5` | 自定义文本5 | `varchar2` | 1000 | 是 | 自定义文本5 |
+| 21 | `tinyintfield1` | 自定义选择1 | `varchar2` | 80 | 是 | 自定义选择1 |
+| 22 | `tinyintfield2` | 自定义选择2 | `varchar2` | 80 | 是 | 自定义选择2 |
+| 23 | `tinyintfield3` | 自定义选择3 | `varchar2` | 80 | 是 | 自定义选择3 |
+| 24 | `tinyintfield4` | 自定义选择4 | `varchar2` | 80 | 是 | 自定义选择4 |
+| 25 | `tinyintfield5` | 自定义选择5 | `varchar2` | 80 | 是 | 自定义选择5 |
+| 26 | `docff01name` | 自定义文档1 | `varchar2` | 1000 | 是 | 自定义文档1 |
+| 27 | `docff02name` | 自定义文档2 | `varchar2` | 1000 | 是 | 自定义文档2 |
+| 28 | `docff03name` | 自定义文档3 | `varchar2` | 1000 | 是 | 自定义文档3 |
+| 29 | `docff04name` | 自定义文档4 | `varchar2` | 1000 | 是 | 自定义文档4 |
+| 30 | `docff05name` | 自定义文档5 | `varchar2` | 1000 | 是 | 自定义文档5 |
+| 31 | `depff01name` | 自定义部门1 | `varchar2` | 1000 | 是 | 自定义部门1 |
+| 32 | `depff02name` | 自定义部门2 | `varchar2` | 1000 | 是 | 自定义部门2 |
+| 33 | `depff03name` | 自定义部门3 | `varchar2` | 1000 | 是 | 自定义部门3 |
+| 34 | `depff04name` | 自定义部门4 | `varchar2` | 1000 | 是 | 自定义部门4 |
+| 35 | `depff05name` | 自定义部门5 | `varchar2` | 1000 | 是 | 自定义部门5 |
+| 36 | `crmff01name` | 自定义客户1 | `varchar2` | 1000 | 是 | 自定义客户1 |
+| 37 | `crmff02name` | 自定义客户2 | `varchar2` | 1000 | 是 | 自定义客户2 |
+| 38 | `crmff03name` | 自定义客户3 | `varchar2` | 1000 | 是 | 自定义客户3 |
+| 39 | `crmff04name` | 自定义客户4 | `varchar2` | 1000 | 是 | 自定义客户4 |
+| 40 | `crmff05name` | 自定义客户5 | `varchar2` | 1000 | 是 | 自定义客户5 |
+| 41 | `reqff01name` | 自定义流程请求1 | `varchar2` | 1000 | 是 | 自定义流程请求1 |
+| 42 | `reqff02name` | 自定义流程请求2 | `varchar2` | 1000 | 是 | 自定义流程请求2 |
+| 43 | `reqff03name` | 自定义流程请求3 | `varchar2` | 1000 | 是 | 自定义流程请求3 |
+| 44 | `reqff04name` | 自定义流程请求4 | `varchar2` | 1000 | 是 | 自定义流程请求4 |
+| 45 | `reqff05name` | 自定义流程请求5 | `varchar2` | 1000 | 是 | 自定义流程请求5 |
+| 46 | `id` | 标识id | `integer` | - | 否 | 标识列 |
+| 47 | `mouldname` | 模板名称 | `varchar2` | 1000 | 是 | 模板名称 |
+| 48 | `userid` | 用户id | `integer` | - | 是 | 用户id |
+| 49 | `mark` | 编号 | `varchar2` | 480 | 是 | 编号 |
+| 50 | `name` | 名称 | `varchar2` | 480 | 是 | 名称 |
+| 51 | `startdate` | 开始日期 (从) | `char` | 10 | 是 | 开始日期 (从) |
+| 52 | `startdate1` | 开始日期(至) | `char` | 10 | 是 | 开始日期(至) |
+| 53 | `enddate` | 结束日期(从) | `char` | 10 | 是 | 结束日期(从) |
+| 54 | `enddate1` | 结束日期(至) | `char` | 10 | 是 | 结束日期(至) |
+| 55 | `seclevel` | 安全级别(从) | `integer` | - | 是 | 安全级别(从) |
+| 56 | `seclevel1` | 安全级别(至) | `integer` | - | 是 | 安全级别(至) |
+| 57 | `departmentid` | 部门 | `integer` | - | 是 | 部门 |
+| 58 | `costcenterid` | 成本中心 | `integer` | - | 是 | 成本中心 |
+| 59 | `resourceid` | 使用人(管理员) | `integer` | - | 是 | 使用人(管理员) |
+| 60 | `currencyid` | 币种 | `integer` | - | 是 | 币种 |
+| 61 | `capitalcost` | 成本(从) | `varchar2` | 240 | 是 | 成本(从) |
+| 62 | `capitalcost1` | 成本(至) | `varchar2` | 240 | 是 | 成本(至) |
+| 63 | `startprice` | 开始价格(从) | `varchar2` | 240 | 是 | 开始价格(从) |
+| 64 | `startprice1` | 开始价格(至) | `varchar2` | 240 | 是 | 开始价格(至) |
+| 65 | `depreendprice` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 66 | `depreendprice1` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 67 | `capitalspec` | 规格 | `varchar2` | 480 | 是 | 规格 |
+| 68 | `capitallevel` | 等级 | `varchar2` | 240 | 是 | 等级 |
+| 69 | `manufacturer` | 制造厂商 | `varchar2` | 800 | 是 | 制造厂商 |
+| 70 | `manudate` | 出厂日期(从) | `char` | 10 | 是 | 出厂日期(从) |
+| 71 | `manudate1` | 出厂日期(至) | `char` | 10 | 是 | 出厂日期(至) |
+| 72 | `capitaltypeid` | 资产类型 | `integer` | - | 是 | 资产类型 |
+| 73 | `capitalgroupid` | 资产组 | `integer` | - | 是 | 资产组 |
+| 74 | `unitid` | 单位 | `integer` | - | 是 | 单位 |
+| 75 | `capitalnum` | 数量(从) | `varchar2` | 240 | 是 | 数量(从) |
+| 76 | `capitalnum1` | 数量(至) | `varchar2` | 240 | 是 | 数量(至) |
+| 77 | `currentnum` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 78 | `currentnum1` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 79 | `replacecapitalid` | 替代 | `integer` | - | 是 | 替代 |
+| 80 | `version` | 版本 | `varchar2` | 480 | 是 | 版本 |
+| 81 | `itemid` | 备用字段 | `integer` | - | 是 | 备用字段 |
+| 82 | `depremethod1` | 折旧法1 | `integer` | - | 是 | 折旧法1 |
+| 83 | `depremethod2` | 折旧法2 | `integer` | - | 是 | 折旧法2 |
+| 84 | `deprestartdate` | 折旧起始日期(从) | `char` | 10 | 是 | 折旧起始日期(从) |
+| 85 | `deprestartdate1` | 折旧起始日期(至) | `char` | 10 | 是 | 折旧起始日期(至) |
+| 86 | `depreenddate` | 折旧结束日期(从) | `char` | 10 | 是 | 折旧结束日期(从) |
+| 87 | `depreenddate1` | 折旧结束日期(至) | `char` | 10 | 是 | 折旧结束日期(至) |
+| 88 | `customerid` | 供应商id | `integer` | - | 是 | 供应商id |
+| 89 | `attribute` | 属性 | `char` | 1 | 是 | 属性 |
+| 90 | `stateid` | 状态 | `integer` | - | 是 | 状态 |
+| 91 | `location` | 存放地点 | `varchar2` | 800 | 是 | 存放地点 |
+| 92 | `isdata` | 资产或资产资料 | `char` | 1 | 是 | 资产或资产资料 |
+| 93 | `isinner` | 帐内或帐外 | `char` | 1 | 是 | 帐内或帐外 |
+| 94 | `counttype` | 备用字段 | `char` | 1 | 是 | 备用字段 |
+| 95 | `stockindate` | 入库日期(从) | `char` | 10 | 是 | 入库日期(从) |
+| 96 | `stockindate1` | 入库日期(至) | `char` | 10 | 是 | 入库日期(至) |
+| 97 | `fnamark` | 财务编号 | `varchar2` | 800 | 是 | 财务编号 |
+| 98 | `barcode` | 条形码 | `varchar2` | 800 | 是 | 条形码 |
+| 99 | `blongdepartment` | 所属分部 | `varchar2` | 80 | 是 | 所属分部 |
+| 100 | `sptcount` | 是否单独核算 | `varchar2` | 80 | 是 | 是否单独核算 |
+| 101 | `relatewfid` | 相关流程 | `varchar2` | 1000 | 是 | 相关流程 |
+| 102 | `selectdate` | 购置日期(从) | `varchar2` | 80 | 是 | 购置日期(从) |
+| 103 | `selectdate1` | 购置日期(至) | `varchar2` | 80 | 是 | 购置日期(至) |
+| 104 | `contractno` | 合同号 | `varchar2` | 800 | 是 | 合同号 |
+| 105 | `invoice` | 发票号码 | `varchar2` | 800 | 是 | 发票号码 |
+| 106 | `depreyear` | 年限 (从) | `varchar2` | 80 | 是 | 年限 (从) |
+| 107 | `deprerate` | 残值率 (从) | `varchar2` | 80 | 是 | 残值率 (从) |
+| 108 | `issupervision` | 备用字段 | `varchar2` | 80 | 是 | 备用字段 |
+| 109 | `amountpay` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 110 | `amountpay1` | 备用字段 | `varchar2` | 240 | 是 | 备用字段 |
+| 111 | `depreyear1` | 年限(至) | `varchar2` | 80 | 是 | 年限(至) |
+| 112 | `deprerate1` | 残值率(至) | `varchar2` | 80 | 是 | 残值率(至) |
+| 113 | `purchasestate` | 备用字段 | `varchar2` | 80 | 是 | 备用字段 |
+| 114 | `datafield1` | 自定义日期1 | `varchar2` | 80 | 是 | 自定义日期1 |
+| 115 | `datafield11` | 自定义日期1 | `varchar2` | 80 | 是 | 自定义日期1 |
+| 116 | `datafield2` | 自定义日期2 | `varchar2` | 80 | 是 | 自定义日期2 |
+| 117 | `datafield22` | 自定义日期2 | `varchar2` | 80 | 是 | 自定义日期2 |
+| 118 | `datafield3` | 自定义日期3 | `varchar2` | 80 | 是 | 自定义日期3 |
+| 119 | `datafield33` | 自定义日期3 | `varchar2` | 80 | 是 | 自定义日期3 |
+| 120 | `datafield4` | 自定义日期4 | `varchar2` | 80 | 是 | 自定义日期4 |

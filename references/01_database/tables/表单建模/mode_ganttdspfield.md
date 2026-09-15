@@ -1,0 +1,18 @@
+# 泛微OA 数据表: `mode_ganttdspfield`
+
+- **所属模块**: `表单建模`
+- **数据库表名**: `mode_ganttdspfield`
+- **字段总数**: `8`
+
+## 表结构定义 (Schema)
+
+| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | `id` | id | `integer` | - | 否 | - |
+| 2 | `ganttid` | 刚特图id | `integer` | - | 是 | - |
+| 3 | `fieldid` | 字段id | `varchar2` | 1000 | 是 | - |
+| 4 | `isshow` | 是否显示 | `char` | 1 | 是 | - |
+| 5 | `showorder` | 排序 | `integer` | - | 是 | - |
+| 6 | `colwidth` | 行宽度 | `number` | (15,2) | 是 | - |
+| 7 | `showname` | 显示名称 | `varchar2` | 1000 | 是 | - |
+| 8 | `shownamelabel` | 显示行名称 | `integer` | - | 是 | - |

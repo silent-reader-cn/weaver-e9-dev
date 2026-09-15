@@ -1,0 +1,13 @@
+# 泛微OA 数据表: `mode_searchpageshareinfo`
+
+- **所属模块**: `表单建模`
+- **数据库表名**: `mode_searchpageshareinfo`
+- **字段总数**: `3`
+
+## 表结构定义 (Schema)
+
+| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | `id` | ID | `integer` | - | 否 | - |
+| 2 | `pageid` | 查询列表id | `integer` | - | 是 | 对应mode_customsearch表的id |
+| 3 | `righttype` | 权限级别 | `integer` | - | 是 | - |

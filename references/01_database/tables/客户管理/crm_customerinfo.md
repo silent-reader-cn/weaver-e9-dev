@@ -1,0 +1,107 @@
+# 泛微OA 数据表: `crm_customerinfo`
+
+- **所属模块**: `客户管理`
+- **数据库表名**: `crm_customerinfo`
+- **字段总数**: `97`
+
+## 表结构定义 (Schema)
+
+| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
+| 1 | `seasflag` | 公海标志 | `integer` | - | 是 | 1:公海客户，2，公海客户申请中，3：申请成功 |
+| 2 | `oldmanager` | 1 | `integer` | - | 是 | 原客户经理，用于公海客户 |
+| 3 | `kh` | 1 | `integer` | - | 是 | - |
+| 4 | `approvedate` | 1 | `varchar2` | 80 | 是 | - |
+| 5 | `dkh` | 1 | `varchar2` | 4000 | 是 | - |
+| 6 | `reew` | 1 | `integer` | - | 是 | - |
+| 7 | `creditamount` | 信用额度 | `number` | (10,2) | 是 | - |
+| 8 | `credittime` | 信用期间 | `integer` | - | 是 | - |
+| 9 | `evaluation` | 客户价值 | `integer` | - | 是 | - |
+| 10 | `bankname` | 银行名称 | `varchar2` | 1000 | 是 | - |
+| 11 | `accountname` | 账户名 | `varchar2` | 1000 | 是 | - |
+| 12 | `accounts` | 账号 | `varchar2` | 1000 | 是 | - |
+| 13 | `crmcode` | 客户编码 | `varchar2` | 800 | 是 | - |
+| 14 | `sex` | 性别 | `integer` | - | 是 | - |
+| 15 | `idcardno` | 身份证号 | `varchar2` | 400 | 是 | - |
+| 16 | `twname` | 繁体名称 | `varchar2` | 800 | 是 | - |
+| 17 | `introduction` | 介绍 | `varchar2` | 2000 | 是 | - |
+| 18 | `ecology_pinyin_search` | 名称拼音 | `varchar2` | 1000 | 是 | - |
+| 19 | `district` | 区县 | `integer` | - | 是 | - |
+| 20 | `salt` | 盐 | `varchar2` | 800 | 是 | - |
+| 21 | `id` | id | `integer` | - | 否 | - |
+| 22 | `name` | 名称 | `varchar2` | 200 | 是 | - |
+| 23 | `language` | 语言 | `integer` | - | 是 | - |
+| 24 | `engname` | 英文名 | `varchar2` | 1000 | 是 | - |
+| 25 | `address1` | 地址1 | `varchar2` | 1000 | 是 | - |
+| 26 | `address2` | 地址2 | `varchar2` | 1000 | 是 | - |
+| 27 | `address3` | 地址3 | `varchar2` | 1000 | 是 | - |
+| 28 | `zipcode` | 邮编 | `varchar2` | 80 | 是 | - |
+| 29 | `city` | 城市 | `integer` | - | 是 | - |
+| 30 | `country` | 国家 | `integer` | - | 是 | - |
+| 31 | `province` | 省份 | `integer` | - | 是 | - |
+| 32 | `county` | 区县 | `varchar2` | 400 | 是 | - |
+| 33 | `phone` | 电话 | `varchar2` | 400 | 是 | - |
+| 34 | `fax` | 传真 | `varchar2` | 400 | 是 | - |
+| 35 | `email` | 邮箱 | `varchar2` | 1000 | 是 | - |
+| 36 | `website` | 网站 | `varchar2` | 1000 | 是 | - |
+| 37 | `source` | 联系方式 | `integer` | - | 是 | - |
+| 38 | `sector` | 行业部门 | `integer` | - | 是 | - |
+| 39 | `size_n` | 1 | `integer` | - | 是 | - |
+| 40 | `manager` | 客户经理 | `integer` | - | 是 | - |
+| 41 | `agent` | 代理商 | `integer` | - | 是 | - |
+| 42 | `parentid` | 上一级客户id | `integer` | - | 是 | - |
+| 43 | `department` | 部门 | `integer` | - | 是 | - |
+| 44 | `fincode` | 财务代码 | `integer` | - | 是 | - |
+| 45 | `currency` | 货币id | `integer` | - | 是 | - |
+| 46 | `contractlevel` | 合同金额 | `integer` | - | 是 | - |
+| 47 | `creditlevel` | 信用等级 | `integer` | - | 是 | - |
+| 48 | `creditoffset` | 信用等级之外的信用额度调整 | `number` | (12,3) | 是 | - |
+| 49 | `discount` | 折扣率 | `number` | (12,3) | 是 | - |
+| 50 | `taxnumber` | 增值税号码 | `varchar2` | 400 | 是 | - |
+| 51 | `bankacount` | 银行账号 | `varchar2` | 400 | 是 | - |
+| 52 | `invoiceacount` | 发票客户 | `integer` | - | 是 | - |
+| 53 | `deliverytype` | 送货类型 | `integer` | - | 是 | - |
+| 54 | `paymentterm` | 支付条件 | `integer` | - | 是 | - |
+| 55 | `paymentway` | 支付方式 | `integer` | - | 是 | - |
+| 56 | `saleconfirm` | 销售确认书 | `integer` | - | 是 | - |
+| 57 | `creditcard` | 信用卡号 | `varchar2` | 400 | 是 | - |
+| 58 | `creditexpire` | 信用卡到期日期 | `varchar2` | 80 | 是 | - |
+| 59 | `documentid` | 文档ID | `integer` | - | 是 | - |
+| 60 | `picid` | 图片id | `integer` | - | 是 | - |
+| 61 | `type` | 类型 | `integer` | - | 是 | - |
+| 62 | `typebegin` | 起始日期 | `varchar2` | 80 | 是 | - |
+| 63 | `description` | 描述 | `integer` | - | 是 | - |
+| 64 | `status` | 状态 | `integer` | - | 是 | - |
+| 65 | `rating` | 级别 | `integer` | - | 是 | - |
+| 66 | `datefield1` | 自定义字段 | `varchar2` | 80 | 是 | - |
+| 67 | `datefield2` | 自定义字段 | `varchar2` | 80 | 是 | - |
+| 68 | `datefield3` | 自定义字段 | `varchar2` | 80 | 是 | - |
+| 69 | `datefield4` | 自定义字段 | `varchar2` | 80 | 是 | - |
+| 70 | `datefield5` | 自定义字段 | `varchar2` | 80 | 是 | - |
+| 71 | `numberfield1` | 自定义字段自定义字段 | `float` | 22 | 是 | - |
+| 72 | `numberfield2` | 自定义字段 | `float` | 22 | 是 | - |
+| 73 | `numberfield3` | 自定义字段 | `float` | 22 | 是 | - |
+| 74 | `numberfield4` | 自定义字段 | `float` | 22 | 是 | - |
+| 75 | `numberfield5` | 自定义字段 | `float` | 22 | 是 | - |
+| 76 | `textfield1` | 自定义字段 | `varchar2` | 800 | 是 | - |
+| 77 | `textfield2` | 自定义字段 | `varchar2` | 800 | 是 | - |
+| 78 | `textfield3` | 自定义字段 | `varchar2` | 800 | 是 | - |
+| 79 | `textfield4` | 自定义字段 | `varchar2` | 800 | 是 | - |
+| 80 | `textfield5` | 自定义字段 | `varchar2` | 800 | 是 | - |
+| 81 | `tinyintfield1` | 自定义字段 | `integer` | - | 是 | - |
+| 82 | `tinyintfield2` | 自定义字段 | `integer` | - | 是 | - |
+| 83 | `tinyintfield3` | 自定义字段 | `integer` | - | 是 | - |
+| 84 | `tinyintfield4` | 自定义字段 | `integer` | - | 是 | - |
+| 85 | `tinyintfield5` | 自定义字段 | `integer` | - | 是 | - |
+| 86 | `deleted` | 是否删除 | `integer` | - | 是 | - |
+| 87 | `subcompanyid1` | 分部 | `integer` | - | 是 | - |
+| 88 | `seclevel` | 安全级别 | `integer` | - | 是 | - |
+| 89 | `portalloginid` | 门户登录账号 | `varchar2` | 480 | 是 | - |
+| 90 | `portalpassword` | 门户登录密码 | `varchar2` | 800 | 是 | - |
+| 91 | `portalstatus` | 门户状态 | `integer` | - | 是 | - |
+| 92 | `createdate` | 创建日期 | `varchar2` | 80 | 是 | - |
+| 93 | `introductiondocid` | 背景资料 | `integer` | - | 是 | - |
+| 94 | `lat1` | 维度 | `varchar2` | 800 | 是 | - |
+| 95 | `lng1` | 经度 | `varchar2` | 800 | 是 | - |
+| 96 | `tyxzk` | 1 | `integer` | - | 是 | - |
+| 97 | `check1` | 1 | `char` | 1 | 是 | - |
