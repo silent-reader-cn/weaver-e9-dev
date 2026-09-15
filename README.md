@@ -186,6 +186,7 @@ weaver-e9-dev/
     ├── convert_apis.py            #   一次性：oa-dev 接口 → 本仓库文档范式
     ├── build_blocks.py            #   一次性：数据库/前端/集成内容归位
     ├── normalize_tables.py        #   一次性：统一两套表结构列格式
+    ├── deprecate_original_repos.py #  一次性：给两个原仓库 README 插入归档提示
     └── selftest.py                #   检索脚本自检（27 项）
 ```
 
