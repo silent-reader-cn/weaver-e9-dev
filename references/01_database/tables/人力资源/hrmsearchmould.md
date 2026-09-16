@@ -1,80 +1,179 @@
 # 泛微OA 数据表: `hrmsearchmould`
 
+- **中文名称**: 人力资源搜索模板表
 - **所属模块**: `人力资源`
 - **数据库表名**: `hrmsearchmould`
-- **文档收录字段数**: `70`
+- **主键**: `id`
+- **字段数**: `167`
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `column_0_148` | 无 | `varchar2` | 200 | 是 | 无 |
-| 2 | `column_0_149` | 无 | `varchar2` | 200 | 是 | 无 |
-| 3 | `column_0_165` | 无 | `varchar2` | 200 | 是 | 无 |
-| 4 | `column_0_147` | 无 | `varchar2` | 200 | 是 | 无 |
-| 5 | `column_0_12` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 6 | `column_0_13` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 7 | `column_0_14` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 8 | `column_0_15` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 9 | `column_0_18` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 10 | `column_0_21` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 11 | `column_0_22` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 12 | `column_0_23` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 13 | `column_0_24` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 14 | `column_0_32` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 15 | `column_0_26` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 16 | `column_0_40` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 17 | `column_0_41` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 18 | `column_1_26` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 19 | `column_0_42` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 20 | `column_0_43` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 21 | `column_0_44` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 22 | `column_0_45` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 23 | `column_1_46` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 24 | `column_0_50` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 25 | `column_1_47` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 26 | `column_1_49` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 27 | `groupid` | 分组id | `varchar2` | 1000 | 是 | 分组id |
-| 28 | `groupvaild` | 分组是否有效 | `char` | 1 | 是 | 分组是否有效 |
-| 29 | `column_0_59` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 30 | `column_0_60` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 31 | `column_0_61` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 32 | `column_0_63` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 33 | `column_0_64` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 34 | `column_0_66` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 35 | `column_0_67` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 36 | `startdateselect` | 开始时间 | `varchar2` | 80 | 是 | 开始时间 |
-| 37 | `enddateselect` | 结束时间 | `varchar2` | 80 | 是 | 结束时间 |
-| 38 | `contractdateselect` | 合同日期 | `varchar2` | 80 | 是 | 合同日期 |
-| 39 | `birthdayselect` | 生日 | `varchar2` | 80 | 是 | 生日 |
-| 40 | `bememberdateselect` | 无 | `varchar2` | 80 | 是 | 无 |
-| 41 | `bepartydateselect` | 无 | `varchar2` | 80 | 是 | 无 |
-| 42 | `jobtitle` | 人力资源职位 | `varchar2` | 800 | 是 | 人力资源职位 |
-| 43 | `subcompany1` | 人力资源所属分部1 | `varchar2` | 1000 | 是 | 人力资源所属分部1 |
-| 44 | `column_0_68` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 45 | `column_0_62` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 46 | `column_0_69` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 47 | `createdateselect` | 创建日期 | `char` | 10 | 是 | 创建日期 |
-| 48 | `createdatefrom` | 创建日期开始 | `char` | 10 | 是 | 创建日期开始 |
-| 49 | `createdateto` | 创建日期到 | `char` | 10 | 是 | 创建日期到 |
-| 50 | `column_0_70` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 51 | `column_0_71` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 52 | `column_0_72` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 53 | `column_1_73` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 54 | `column_0_77` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 55 | `column_0_78` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 56 | `column_0_79` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 57 | `column_0_80` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 58 | `column_0_81` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 59 | `column_0_82` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 60 | `column_0_83` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 61 | `column_1_128` | 无 | `varchar2` | 1000 | 是 | 无 |
-| 62 | `column_1_135` | 无 | `varchar2` | 200 | 是 | 无 |
-| 63 | `column_1_137` | 无 | `varchar2` | 200 | 是 | 无 |
-| 64 | `workroom` | 办公室 | `varchar2` | 480 | 是 | 办公室 |
-| 65 | `telephone` | 电话 | `varchar2` | 480 | 是 | 电话 |
-| 66 | `startdate` | 人力资源工作起始日期 | `char` | 10 | 是 | 人力资源工作起始日期 |
-| 67 | `enddate` | 人力资源工作结束日期 | `char` | 10 | 是 | 人力资源工作结束日期 |
-| 68 | `contractdate` | 合同结束日期 从 | `char` | 10 | 是 | 合同结束日期 从 |
-| 69 | `birthday` | 出生日期 从 | `char` | 10 | 是 | 出生日期 从 |
-| 70 | `sex` | 人力资源性别 | `char` | 1 | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `column_0_148` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 2 | `column_0_149` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 3 | `column_0_165` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 4 | `column_0_147` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 5 | `column_0_12` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 6 | `column_0_13` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 7 | `column_0_14` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 8 | `column_0_15` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 9 | `column_0_18` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 10 | `column_0_21` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 11 | `column_0_22` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 12 | `column_0_23` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 13 | `column_0_24` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 14 | `column_0_32` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 15 | `column_0_26` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 16 | `column_0_40` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 17 | `column_0_41` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 18 | `column_1_26` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 19 | `column_0_42` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 20 | `column_0_43` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 21 | `column_0_44` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 22 | `column_0_45` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 23 | `column_1_46` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 24 | `column_0_50` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 25 | `column_1_47` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 26 | `column_1_49` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 27 | `groupid` | 分组id | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 分组id |
+| 28 | `groupvaild` | 分组是否有效 | `char` | 1 | 是 | 否 | 否 | - | - | 分组是否有效 |
+| 29 | `column_0_59` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 30 | `column_0_60` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 31 | `column_0_61` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 32 | `column_0_63` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 33 | `column_0_64` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 34 | `column_0_66` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 35 | `column_0_67` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 36 | `startdateselect` | 开始时间 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 开始时间 |
+| 37 | `enddateselect` | 结束时间 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 结束时间 |
+| 38 | `contractdateselect` | 合同日期 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 合同日期 |
+| 39 | `birthdayselect` | 生日 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 生日 |
+| 40 | `bememberdateselect` | 无 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 无 |
+| 41 | `bepartydateselect` | 无 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 无 |
+| 42 | `jobtitle` | 人力资源职位 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 人力资源职位 |
+| 43 | `subcompany1` | 人力资源所属分部1 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 人力资源所属分部1 |
+| 44 | `column_0_68` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 45 | `column_0_62` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 46 | `column_0_69` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 47 | `createdateselect` | 创建日期 | `char` | 10 | 是 | 否 | 否 | - | - | 创建日期 |
+| 48 | `createdatefrom` | 创建日期开始 | `char` | 10 | 是 | 否 | 否 | - | - | 创建日期开始 |
+| 49 | `createdateto` | 创建日期到 | `char` | 10 | 是 | 否 | 否 | - | - | 创建日期到 |
+| 50 | `column_0_70` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 51 | `column_0_71` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 52 | `column_0_72` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 53 | `column_1_73` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 54 | `column_0_77` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 55 | `column_0_78` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 56 | `column_0_79` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 57 | `column_0_80` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 58 | `column_0_81` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 59 | `column_0_82` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 60 | `column_0_83` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 61 | `column_1_128` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 无 |
+| 62 | `column_1_135` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 63 | `column_1_137` | 无 | `varchar2` | 200 | 是 | 否 | 否 | - | - | 无 |
+| 64 | `workroom` | 办公室 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 办公室 |
+| 65 | `telephone` | 电话 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 电话 |
+| 66 | `startdate` | 人力资源工作起始日期 | `char` | 10 | 是 | 否 | 否 | - | - | 人力资源工作起始日期 |
+| 67 | `enddate` | 人力资源工作结束日期 | `char` | 10 | 是 | 否 | 否 | - | - | 人力资源工作结束日期 |
+| 68 | `contractdate` | 合同结束日期 从 | `char` | 10 | 是 | 否 | 否 | - | - | 合同结束日期 从 |
+| 69 | `birthday` | 出生日期 从 | `char` | 10 | 是 | 否 | 否 | - | - | 出生日期 从 |
+| 70 | `sex` | 人力资源性别 | `char` | 1 | 是 | 否 | 否 | - | - | 0:男性<br>1:女性<br>2:未知 |
+| 71 | `seclevelto` | 安全级别 到 | `integer` | - | 是 | 否 | 否 | - | - | 安全级别 到 |
+| 72 | `joblevelto` | 工作级别 到 | `integer` | - | 是 | 否 | 否 | - | - | 工作级别 到 |
+| 73 | `startdateto` | 系统开始日期 到 | `char` | 10 | 是 | 否 | 否 | - | - | 系统开始日期 到 |
+| 74 | `enddateto` | 系统结束日期 到 | `char` | 10 | 是 | 否 | 否 | - | - | 系统结束日期 到 |
+| 75 | `contractdateto` | 合同结束日期 到 | `char` | 10 | 是 | 否 | 否 | - | - | 合同结束日期 到 |
+| 76 | `birthdayto` | 出生日期 到 | `char` | 10 | 是 | 否 | 否 | - | - | 出生日期 到 |
+| 77 | `age` | 人力资源年龄 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源年龄 |
+| 78 | `ageto` | 年龄到 | `integer` | - | 是 | 否 | 否 | - | - | 年龄到 |
+| 79 | `resourceidfrom` | 户口 | `integer` | - | 是 | 否 | 否 | - | - | 户口 |
+| 80 | `resourceidto` | 无 | `integer` | - | 是 | 否 | 否 | - | - | 无 |
+| 81 | `workcode` | 编号 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 编号 |
+| 82 | `jobcall` | 职称 | `integer` | - | 是 | 否 | 否 | - | - | 职称 |
+| 83 | `mobile` | 手机 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 手机 |
+| 84 | `mobilecall` | 其他电话 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 其他电话 |
+| 85 | `fax` | 传真 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 传真 |
+| 86 | `email` | 电子邮件 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 电子邮件 |
+| 87 | `folk` | 民族 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 民族 |
+| 88 | `nativeplace` | 籍贯 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 籍贯 |
+| 89 | `regresidentplace` | 户口 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 户口 |
+| 90 | `maritalstatus` | 婚姻状况 | `char` | 1 | 是 | 否 | 否 | - | - | 婚姻状况 |
+| 91 | `certificatenum` | 身份证号 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 身份证号 |
+| 92 | `tempresidentnumber` | 暂住证号码 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 暂住证号码 |
+| 93 | `residentplace` | 现居住地 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 现居住地 |
+| 94 | `homeaddress` | 家庭地址 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 家庭地址 |
+| 95 | `healthinfo` | 健康状况 | `char` | 1 | 是 | 否 | 否 | - | - | 健康状况 |
+| 96 | `heightfrom` | 身高 从 | `integer` | - | 是 | 否 | 否 | - | - | 身高 从 |
+| 97 | `heightto` | 身高 到 | `integer` | - | 是 | 否 | 否 | - | - | 身高 到 |
+| 98 | `weightfrom` | 体重 从 | `integer` | - | 是 | 否 | 否 | - | - | 体重 从 |
+| 99 | `weightto` | 体重 到 | `integer` | - | 是 | 否 | 否 | - | - | 体重 到 |
+| 100 | `educationlevel` | 教育情况 | `integer` | - | 是 | 否 | 否 | - | - | 教育情况 |
+| 101 | `degree` | 学历 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 学历 |
+| 102 | `usekind` | 职责 | `integer` | - | 是 | 否 | 否 | - | - | 职责 |
+| 103 | `policy` | 政治面貌 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 政治面貌 |
+| 104 | `bememberdatefrom` | 入团日期 从 | `char` | 10 | 是 | 否 | 否 | - | - | 入团日期 从 |
+| 105 | `bememberdateto` | 入团日期到 | `char` | 10 | 是 | 否 | 否 | - | - | 入团日期到 |
+| 106 | `bepartydatefrom` | 入党日期从 | `char` | 10 | 是 | 否 | 否 | - | - | 入党日期从 |
+| 107 | `bepartydateto` | 入党日期到 | `char` | 10 | 是 | 否 | 否 | - | - | 入党日期到 |
+| 108 | `islabouunion` | 是否党员 | `char` | 1 | 是 | 否 | 否 | - | - | 是否党员 |
+| 109 | `bankid1` | 工资银行 | `integer` | - | 是 | 否 | 否 | - | - | 工资银行 |
+| 110 | `accountid1` | 银行帐号 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 银行帐号 |
+| 111 | `accumfundaccount` | 公积金帐号 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 公积金帐号 |
+| 112 | `loginid` | 登录名 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 登录名 |
+| 113 | `systemlanguage` | 系统语言 | `integer` | - | 是 | 否 | 否 | - | - | 系统语言 |
+| 114 | `birthdayyear` | 生日年份 | `integer` | - | 是 | 否 | 否 | - | - | 生日年份 |
+| 115 | `birthdaymonth` | 生日月份 | `integer` | - | 是 | 否 | 否 | - | - | 生日月份 |
+| 116 | `birthdayday` | 生日天 | `integer` | - | 是 | 否 | 否 | - | - | 生日天 |
+| 117 | `educationlevelto` | 教育水平 | `integer` | - | 是 | 否 | 否 | - | - | 教育水平 |
+| 118 | `department` | 人力资源所属部门 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 人力资源所属部门 |
+| 119 | `datefield1` | 自定义起始日期1 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义起始日期1 |
+| 120 | `datefield2` | 自定义起始日期2 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义起始日期2 |
+| 121 | `datefield3` | 自定义起始日期3 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义起始日期3 |
+| 122 | `datefield4` | 自定义起始日期4 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义起始日期5 |
+| 123 | `datefield5` | 自定义起始日期5 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义起始日期5 |
+| 124 | `datefieldto1` | 自定义截止日期1 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义截止日期1 |
+| 125 | `datefieldto2` | 自定义截止日期2 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义截止日期2 |
+| 126 | `datefieldto3` | 自定义截止日期3 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义截止日期3 |
+| 127 | `datefieldto4` | 自定义截止日期3 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义截止日期3 |
+| 128 | `datefieldto5` | 自定义截止日期5 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义截止日期5 |
+| 129 | `textfield1` | 自定义文本字段1 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本字段1 |
+| 130 | `textfield2` | 自定义文本字段2 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本字段2 |
+| 131 | `textfield3` | 自定义文本字段3 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本字段3 |
+| 132 | `textfield4` | 自定义文本字段4 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本字段4 |
+| 133 | `textfield5` | 自定义文本字段5 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本字段5 |
+| 134 | `numberfield1` | 自定义数字字段1 从 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段1 从 |
+| 135 | `numberfield2` | 自定义数字字段2 从 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段2 从 |
+| 136 | `numberfield3` | 自定义数字字段3 从 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段3 从 |
+| 137 | `numberfield4` | 自定义数字字段4 从 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段4 从 |
+| 138 | `numberfield5` | 自定义数字字段5 从 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段5 从 |
+| 139 | `numberfieldto1` | 自定义数字字段1 到 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段1 到 |
+| 140 | `numberfieldto2` | 自定义数字字段2 到 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段2 到 |
+| 141 | `numberfieldto3` | 自定义数字字段3 到 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段3 到 |
+| 142 | `numberfieldto4` | 自定义数字字段4 到 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段4 到 |
+| 143 | `numberfieldto5` | 自定义数字字段5 到 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 自定义数字字段5 到 |
+| 144 | `tinyintfield1` | 自定义判断字段1 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断字段1 |
+| 145 | `tinyintfield2` | 自定义判断字段2 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断字段2 |
+| 146 | `tinyintfield3` | 自定义判断字段3 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断字段3 |
+| 147 | `tinyintfield4` | 自定义判断字段4 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断字段4 |
+| 148 | `tinyintfield5` | 自定义判断字段5 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断字段5 |
+| 149 | `accounttype` | 账户类型 | `integer` | - | 是 | 否 | 否 | - | - | 账户类型 |
+| 150 | `id` | ID | `integer` | - | 否 | 否 | 否 | - | - | ID |
+| 151 | `mouldname` | 查询模板描述 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 查询模板描述 |
+| 152 | `userid` | 用户id | `integer` | - | 是 | 否 | 否 | - | - | 用户id |
+| 153 | `resourceid` | 人力资源id | `integer` | - | 是 | 否 | 否 | - | - | 人力资源id |
+| 154 | `resourcename` | 人力资源姓名 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 人力资源姓名 |
+| 155 | `activitydesc` | 人力资源职责描述 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 人力资源职责描述 |
+| 156 | `jobgroup` | 人力资源工作类型 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源工作类型 |
+| 157 | `jobactivity` | 工作职责 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源工作类型 |
+| 158 | `costcenter` | 成本中心 | `integer` | - | 是 | 否 | 否 | - | - | 成本中心 |
+| 159 | `competency` | 技能 | `integer` | - | 是 | 否 | 否 | - | - | 技能 |
+| 160 | `resourcetype` | 用户类别 | `char` | 1 | 是 | 否 | 否 | - | - | 用户类别 |
+| 161 | `status` | 人力资源状态 | `char` | 1 | 是 | 否 | 否 | - | - | 0:不活跃，1:活跃 |
+| 162 | `location` | 人力资源位置 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源位置 |
+| 163 | `manager` | 人力资源经理 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源经理 |
+| 164 | `assistant` | 人力资源助理 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源助理 |
+| 165 | `roles` | 人力资源所属角色 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源所属角色 |
+| 166 | `seclevel` | 人力资源安全级别 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源安全级别 |
+| 167 | `joblevel` | 人力资源工作级别 | `integer` | - | 是 | 否 | 否 | - | - | 人力资源工作级别 |

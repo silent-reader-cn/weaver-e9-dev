@@ -1,18 +1,20 @@
 # 泛微OA 数据表: `fnacurrencyexchange`
 
+- **中文名称**: 币种汇率表
 - **所属模块**: `财务管理`
 - **数据库表名**: `fnacurrencyexchange`
-- **文档收录字段数**: `8`
+- **主键**: `id`
+- **字段数**: `8`
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | ID | `integer` | - | 否 | - |
-| 2 | `defcurrencyid` | 基准币种 | `integer` | - | 是 | - |
-| 3 | `thecurrencyid` | 换算币种 | `integer` | - | 是 | - |
-| 4 | `fnayear` | 会计年度 | `char` | 4 | 是 | - |
-| 5 | `periodsid` | 会计期间 | `integer` | - | 是 | - |
-| 6 | `fnayearperiodsid` | 供比较用,没有其它意义 | `char` | 6 | 是 | - |
-| 7 | `avgexchangerate` | 平均汇率 | `varchar2` | 160 | 是 | - |
-| 8 | `endexchangerage` | 期末汇率 | `varchar2` | 160 | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | ID | `integer` | - | 否 | 否 | 否 | - | - | - |
+| 2 | `defcurrencyid` | 基准币种 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 3 | `thecurrencyid` | 换算币种 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 4 | `fnayear` | 会计年度 | `char` | 4 | 是 | 否 | 否 | - | - | - |
+| 5 | `periodsid` | 会计期间 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 6 | `fnayearperiodsid` | 供比较用,没有其它意义 | `char` | 6 | 是 | 否 | 否 | - | - | - |
+| 7 | `avgexchangerate` | 平均汇率 | `varchar2` | 160 | 是 | 否 | 否 | - | - | - |
+| 8 | `endexchangerage` | 期末汇率 | `varchar2` | 160 | 是 | 否 | 否 | - | - | - |

@@ -60,11 +60,13 @@ def build_db_index():
         table = m.group(1) if m else os.path.splitext(os.path.basename(fp))[0]
         mm = re.search(r"所属模块\*\*\s*[:：]\s*`([^`]+)`", text)
         module = mm.group(1) if mm else os.path.basename(os.path.dirname(fp))
-        mc = re.search(r"文档收录字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
-            re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
+        mc = re.search(r"字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
+            re.search(r"(?:文档收录字段数|字段总数)\*\*\s*[:：]\s*`?(\d+)`?", text)
         ncol = int(mc.group(1)) if mc else 0
         # tools/audit_tables.py 写入的完整性警告
         incomplete = "⚠️ 表结构不完整" in text
+        mcn = re.search(r"(?m)^-\s*\*\*中文名称\*\*\s*[:：]\s*(.+)$", text)
+        tbl_cn = mcn.group(1).strip() if mcn else ""
 
         cols = []
         for ln in text.split("\n"):
@@ -73,9 +75,8 @@ def build_db_index():
             cells = [c.strip() for c in ln.strip().strip("|").split("|")]
             if len(cells) < 4:
                 continue
-            # 源仓库里存在两种导出格式，表头相同但数据行不同：
-            #   A: | 1 | `id` | 主键ID | `integer` | - | 否 | - |      列名在第 2 列
-            #   B: | 1 | - | id | `主键ID` | integer | - | - |         整行右移一列（多一个占位列）
+            # 重建后为 11 列：序号|列名|中文名称|类型|长度|可空|外键|自增长|外键信息|默认值|说明
+            # 历史格式 A 为 7 列：序号|列名|中文说明|...；格式 B 整行右移（列名位为 `-`）
             if cells[1] in ("-", ""):
                 name, cn = cells[2], cells[3]
             else:
@@ -86,7 +87,7 @@ def build_db_index():
                 cols.append((name, "" if cn == "-" else cn))
 
         rel = os.path.relpath(fp, base).replace("\\", "/")
-        modules.setdefault(module, []).append((table, ncol, cols, rel, incomplete))
+        modules.setdefault(module, []).append((table, tbl_cn, ncol, cols, rel, incomplete))
 
     total = sum(len(v) for v in modules.values())
     L = ["# 数据库表总索引", "",
@@ -106,8 +107,8 @@ def build_db_index():
          "> ORDER BY column_id;",
          "> ```",
          ">",
-         "> 带 ⚠️ 的表已**确证不完整**（本仓库其他文档引用了它没收录的列），",
-         "> 完整清单与判定依据见 [`_QUALITY.md`](./_QUALITY.md)。",
+         "> 文档由 `tools/rebuild_tables_from_html.py` 从上游数据字典 HTML 全量重建。",
+         "> 带 ⚠️ 的表表示交叉校验发现列不一致，清单见 [`_QUALITY.md`](./_QUALITY.md)。",
          "",
          "> 检索表结构请用统一检索脚本（比翻本文件更快）：",
          "> ```bash",
@@ -132,17 +133,18 @@ def build_db_index():
         L.append("")
         L.append("> 本模块共收录 `%d` 张数据表。" % len(items))
         L.append("")
-        L.append("| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |")
+        L.append("| 序号 | 数据库表名 | 中文名称 | 字段数 | 关键字段预览 | 详细定义文件 |")
         L.append("| :---: | :--- | :---: | :--- | :--- |")
-        for i, (table, ncol, cols, rel, incomplete) in enumerate(sorted(items), 1):
+        for i, (table, tbl_cn, ncol, cols, rel, incomplete) in enumerate(sorted(items), 1):
             if cols:
                 head = "、".join("`%s`(%s)" % (c, cn or "-") for c, cn in cols[:4])
                 preview = head + (" 等共 %d 个字段" % ncol if ncol > 4 else "")
             else:
                 preview = "-"
             flag = " ⚠️" if incomplete else ""
-            L.append("| %d | `%s`%s | %d | %s | [%s](./%s) |"
-                     % (i, table, flag, ncol, preview, os.path.basename(rel), rel))
+            L.append("| %d | `%s`%s | %s | %d | %s | [%s](./%s) |"
+                     % (i, table, flag, tbl_cn or "-", ncol, preview,
+                        os.path.basename(rel), rel))
         L.append("")
     write(os.path.join(base, "_INDEX.md"), L)
     return total, len(modules)

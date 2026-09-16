@@ -5,24 +5,23 @@
 ====================
 背景
 ----
-`references/01_database/tables/` 下的表结构文档**不是完整表结构**，
-而是**部分收录**——很多表只记录了升级补丁新增的列，缺少 CREATE TABLE 的基础列。
+表结构文档曾长期存在「部分收录」问题：很多表只记录了升级补丁新增的列，
+缺少 CREATE TABLE 的基础列（如 `workflow_requestlog` 只收录 1 列）。
 
-实例（铁证）：
-  - `workflow_requestlog` 文档只收录 1 列（`issubmitdirect`），
-    但本仓库 `core_tables.md` 明确写了它有 `requestid/nodeid/operator/remark/logtype`；
-  - `workflow_requestbase` 文档缺 `requestid`，
-    但本仓库 `sql_cookbook.md` 的 SQL 里写着 `JOIN workflow_requestbase r ON c.requestid = r.requestid`。
+**该问题已通过 `tools/rebuild_tables_from_html.py` 从上游数据字典 HTML 全量重建修复。**
+现在文档与数据字典导出完全一致。
 
-若 agent 直接信任这些文档去写 SQL，会写出错误语句。本脚本把「不可信」这一点
-**显式标注**出来，让消费方（agent / 人）第一时间看到。
+本脚本的角色因此变为**一致性校验 + 历史遗留清理**：
+  1. 清理历史遗留的旧标签（`文档收录字段数` -> `字段数`）
+  2. 用两个**仓库内权威来源**交叉验证表文档的列是否齐全：
+     - A. `core_tables.md` —— 手写的核心表关键字段清单
+     - B. `sql_cookbook.md` —— 生产级 SQL 模板（解析 FROM/JOIN 别名与 `别名.列名` 引用）
+     若某列被这两处引用却在表文档中不存在，则插入警告块并在报告中列出。
+  3. 生成 `references/01_database/_QUALITY.md` 校验报告
 
-本脚本做三件事
---------------
-  1. 把误导性的标签 `字段总数` 改名为 `文档收录字段数`（1699 个文件）
-  2. 用两个**仓库内权威来源**交叉验证，找出**可确证不完整**的表，
-     在其文档顶部插入警告块（幂等）
-  3. 生成 `references/01_database/_QUALITY.md` 数据质量报告
+注意：校验发现不一致时，**既可能是表文档缺列，也可能是 core_tables.md / sql_cookbook.md
+本身写错**（重建后就出现过 2 处：`workflow_billfield.type`、`docdetail.doccontent`
+实际不存在于数据字典）。请人工判断后再改。
 
 交叉验证来源
 ------------
@@ -44,8 +43,9 @@ ROOT = os.path.dirname(SCRIPT_DIR)
 DB_DIR = os.path.join(ROOT, "references", "01_database")
 TABLES_DIR = os.path.join(DB_DIR, "tables")
 
-OLD_LABEL = "字段总数"
-NEW_LABEL = "文档收录字段数"
+# 重建后文档已完整，标签恢复为 `字段数`；此处仅用于清理历史遗留标签
+OLD_LABEL = "文档收录字段数"
+NEW_LABEL = "字段数"
 
 # 警告块的机器可识别标记（search.py 依赖它）
 MARK = "⚠️ 表结构不完整"
@@ -64,15 +64,15 @@ def read_table(fp):
     name = m.group(1) if m else os.path.splitext(os.path.basename(fp))[0]
     mm = re.search(r"所属模块\*\*\s*[:：]\s*`([^`]+)`", t)
     module = mm.group(1) if mm else os.path.basename(os.path.dirname(fp))
-    mc = re.search(r"(?:字段总数|文档收录字段数)\*\*\s*[:：]\s*`?(\d+)`?", t)
+    mc = re.search(r"(?:字段数|字段总数|文档收录字段数)\*\*\s*[:：]\s*`?(\d+)`?", t)
     ncol = int(mc.group(1)) if mc else 0
     cols = set()
     for ln in t.split("\n"):
         if not re.match(r"^\|\s*\d+\s*\|", ln):
             continue
         cells = [c.strip() for c in ln.strip().strip("|").split("|")]
-        if len(cells) == 7:
-            # 格式A：序号|列名|中文说明|...  格式B已归一化，此处统一按A取
+        # 列名恒在第 2 列；重建后是 11 列，历史格式是 7 列，故用 >=
+        if len(cells) >= 7:
             col = cells[1].strip("`").strip()
             if col:
                 cols.add(col.lower())
@@ -247,24 +247,22 @@ def main(argv):
 
 
 def write_quality_report(tables, findings, renamed):
-    L = ["# 表结构数据质量报告", "",
+    L = ["# 表结构文档校验报告", "",
          "> 本文件由 `tools/audit_tables.py` 自动生成，请勿手工编辑。", "",
-         "## 结论：表结构文档是**部分收录**，不是完整表结构", "",
-         "`tables/` 下的表结构文档来自上游数据源，**很多表只记录了升级补丁新增的列**，",
-         "缺少 `CREATE TABLE` 的基础列。直接依据这些文档编写 SQL 会出错。", "",
-         "**使用前请务必用以下 SQL 从真实库核对：**", "",
-         "```sql",
-         "SELECT column_name, data_type, data_length, nullable",
-         "FROM user_tab_columns",
-         "WHERE table_name = 'WORKFLOW_REQUESTBASE'   -- 换成你的表名（大写）",
-         "ORDER BY column_id;",
-         "```", "",
-         "> 另外注意：文档中的 `文档收录字段数` 是**本文件记录了几行**，",
-         "> 不等于表的真实列数。", "",
+         "## 数据来源", "",
+         "`tables/` 下的表结构文档由 `tools/rebuild_tables_from_html.py`",
+         "从上游**数据字典 HTML 导出**全量重建，与导出内容一致。",
+         "解析后的原始数据存档在 [`_source/db_dictionary.json`](./_source/db_dictionary.json)。", "",
+         "## 校验方法", "",
+         "用仓库内两个权威来源交叉验证表文档的列是否齐全：", "",
+         "- `core_tables.md` —— 手写的核心表关键字段清单",
+         "- `sql_cookbook.md` —— 生产级 SQL 模板（解析 `FROM/JOIN` 别名与 `别名.列名` 引用）", "",
+         "若某列被这两处引用、却在表文档中不存在，则视为不一致。", "",
+         "> ⚠️ 不一致**既可能是表文档缺列，也可能是上述两处文档自身写错**。",
+         "> 重建后就发现过 2 处属于后者：`workflow_billfield.type`、`docdetail.doccontent`",
+         "> 实际并不存在于数据字典中。请人工判断后再改。", "",
          "---", "",
-         "## 已确证不完整的表", "",
-         "判定方法：本仓库的 `core_tables.md`（手写关键字段清单）或 `sql_cookbook.md`",
-         "（生产 SQL 模板）中引用了某列，但该表文档未收录 —— 说明文档必有遗漏。", ""]
+         "## 校验结果：不一致的表", ""]
 
     if findings:
         L += ["| 表名 | 模块 | 文档收录字段数 | 缺失的列（被本仓库其他文档引用） | 判定依据 |",
@@ -281,8 +279,8 @@ def write_quality_report(tables, findings, renamed):
     else:
         L.append("（无）")
 
-    L += ["", "---", "", "## 全库字段数分布（辅助判断）", "",
-          "| 文档收录字段数 | 表数量 |", "| :---: | :---: |"]
+    L += ["", "---", "", "## 全库字段数分布", "",
+          "| 字段数 | 表数量 |", "| :---: | :---: |"]
     from collections import Counter
     c = Counter()
     for info in tables.values():
@@ -293,8 +291,7 @@ def write_quality_report(tables, findings, renamed):
     for k in ["1", "2-5", "6-10", "11-20", "21-40", "41-80", "81+"]:
         if c[k]:
             L.append("| %s | %d |" % (k, c[k]))
-    L += ["", "> 中位数仅 **7 列**。字段数极少的表**未必**都是残缺（字典表、序列表本就很小），",
-          "> 但反过来，**字段数多也不代表完整** —— 上表列出的才是已确证有遗漏的。", ""]
+    L += ["", "> 重建后中位数已从 7 列提升到 9 列。字段数少的多为字典表、关联表，属正常。", ""]
 
     fp = os.path.join(DB_DIR, "_QUALITY.md")
     open(fp, "w", encoding="utf-8").write("\n".join(L).rstrip() + "\n")

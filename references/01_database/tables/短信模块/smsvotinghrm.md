@@ -1,18 +1,22 @@
 # 泛微OA 数据表: `smsvotinghrm`
 
+- **中文名称**: 短信投票人投票明细表
 - **所属模块**: `短信模块`
 - **数据库表名**: `smsvotinghrm`
-- **文档收录字段数**: `8`
+- **主键**: `id`
+- **字段数**: `8`
+
+> 说明：e9短信投票功能(废弃)
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | 主键id | `integer` | 0 | 否 | &nbsp; |
-| 2 | `smsvotingid` | 对应投票id | `integer` | 0 | 是 | &nbsp; |
-| 3 | `smsvotingdetailid` | 对应投票明细id | `integer` | 0 | 是 | &nbsp; |
-| 4 | `userid` | 投票人 | `integer` | 0 | 是 | &nbsp; |
-| 5 | `receivesms` | 投票短信内容 | `varchar2` | 1000 | 是 | &nbsp; |
-| 6 | `receivedate` | 投票日期 | `varchar2` | 80 | 是 | &nbsp; |
-| 7 | `receivetime` | 投票时间 | `varchar2` | 80 | 是 | &nbsp; |
-| 8 | `status` | 投票是否有效 | `integer` | 0 | 是 | 0 未投 1有效 2无效 |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | 主键id | `integer` | 0 | 否 | 否 | 是 | - | - | &nbsp; |
+| 2 | `smsvotingid` | 对应投票id | `integer` | 0 | 是 | 否 | 否 | - | - | &nbsp; |
+| 3 | `smsvotingdetailid` | 对应投票明细id | `integer` | 0 | 是 | 否 | 否 | - | - | &nbsp; |
+| 4 | `userid` | 投票人 | `integer` | 0 | 是 | 否 | 否 | - | - | &nbsp; |
+| 5 | `receivesms` | 投票短信内容 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | &nbsp; |
+| 6 | `receivedate` | 投票日期 | `varchar2` | 80 | 是 | 否 | 否 | - | - | &nbsp; |
+| 7 | `receivetime` | 投票时间 | `varchar2` | 80 | 是 | 否 | 否 | - | - | &nbsp; |
+| 8 | `status` | 投票是否有效 | `integer` | 0 | 是 | 否 | 否 | - | - | 0 未投 1有效 2无效 |

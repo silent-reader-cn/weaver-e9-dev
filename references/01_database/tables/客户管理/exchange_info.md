@@ -1,31 +1,35 @@
 # 泛微OA 数据表: `exchange_info`
 
+- **中文名称**: E9_客户留言表
 - **所属模块**: `客户管理`
 - **数据库表名**: `exchange_info`
-- **文档收录字段数**: `21`
+- **主键**: `id`
+- **字段数**: `21`
+
+> 说明：客户门户留言
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | 编号 | `integer` | - | 否 | - |
-| 2 | `sortid` | 待定 | `integer` | - | 是 | - |
-| 3 | `name` | 待定 | `varchar2` | 1000 | 是 | - |
-| 4 | `remarkold` | 待定 | `varchar2` | 4000 | 是 | - |
-| 5 | `creater` | 留言者 | `integer` | - | 是 | - |
-| 6 | `createdate` | 创建日期 | `char` | 10 | 是 | - |
-| 7 | `createtime` | 创建时间 | `char` | 10 | 是 | - |
-| 8 | `type_n` | 留言类型 | `char` | 2 | 是 | - |
-| 9 | `docids` | 文档id | `varchar2` | 1000 | 是 | - |
-| 10 | `crmids` | 客户id | `varchar2` | 1000 | 是 | - |
-| 11 | `projectids` | 项目id | `varchar2` | 1000 | 是 | - |
-| 12 | `requestids` | 待定 | `varchar2` | 1000 | 是 | - |
-| 13 | `creatertype` | 创建类型 | `char` | 1 | 是 | - |
-| 14 | `relatedprj` | 待定 | `varchar2` | 1000 | 是 | - |
-| 15 | `relatedcus` | 待定 | `varchar2` | 1000 | 是 | - |
-| 16 | `relatedwf` | 待定 | `varchar2` | 1000 | 是 | - |
-| 17 | `relateddoc` | 待定 | `varchar2` | 1000 | 是 | - |
-| 18 | `accessory` | 待定 | `varchar2` | 2000 | 是 | - |
-| 19 | `relatedtsk` | 待定 | `varchar2` | 2000 | 是 | - |
-| 20 | `tskids` | 待定 | `varchar2` | 2000 | 是 | - |
-| 21 | `remark` | 待定 | `clob` | 4000 | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | 编号 | `integer` | - | 否 | 否 | 是 | - | - | - |
+| 2 | `sortid` | 待定 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 3 | `name` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 4 | `remarkold` | 待定 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | - |
+| 5 | `creater` | 留言者 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 6 | `createdate` | 创建日期 | `char` | 10 | 是 | 否 | 否 | - | - | - |
+| 7 | `createtime` | 创建时间 | `char` | 10 | 是 | 否 | 否 | - | - | - |
+| 8 | `type_n` | 留言类型 | `char` | 2 | 是 | 否 | 否 | - | - | - |
+| 9 | `docids` | 文档id | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 10 | `crmids` | 客户id | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 11 | `projectids` | 项目id | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 12 | `requestids` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 13 | `creatertype` | 创建类型 | `char` | 1 | 是 | 否 | 否 | - | 1 | - |
+| 14 | `relatedprj` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 15 | `relatedcus` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 16 | `relatedwf` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 17 | `relateddoc` | 待定 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 18 | `accessory` | 待定 | `varchar2` | 2000 | 是 | 否 | 否 | - | - | - |
+| 19 | `relatedtsk` | 待定 | `varchar2` | 2000 | 是 | 否 | 否 | - | - | - |
+| 20 | `tskids` | 待定 | `varchar2` | 2000 | 是 | 否 | 否 | - | - | - |
+| 21 | `remark` | 待定 | `clob` | 4000 | 是 | 否 | 否 | - | - | - |

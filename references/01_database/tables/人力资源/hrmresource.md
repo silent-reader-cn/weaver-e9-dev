@@ -1,49 +1,142 @@
 # 泛微OA 数据表: `hrmresource`
 
-> ⚠️ 表结构不完整（已确证）
->
-> 本文件仅收录 **24** 个字段，缺少本表的基础列：`departmentid`、`email`、`id`、`lastname`、`loginid`、`managerid`、`mobile`、`subcompanyid1`
->
-> 判定依据：本仓库 `core_tables.md` 与 `sql_cookbook.md` 中明确引用了上述列，但本文档未收录。
-> 说明本文档是**部分收录**（很可能只含升级补丁新增的列），**不是完整表结构**。
->
-> **请勿直接依据本文档编写 SQL**。获取真实结构：
->
-> ```sql
-> SELECT column_name, data_type, data_length, nullable FROM user_tab_columns WHERE table_name = 'HRMRESOURCE' ORDER BY column_id;
-> ```
-<!-- audit-warning-end -->
-
-
+- **中文名称**: 人力资源基本信息表
 - **所属模块**: `人力资源`
 - **数据库表名**: `hrmresource`
-- **文档收录字段数**: `24`
+- **主键**: `id`
+- **字段数**: `130`
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `haschangepwd` | 密码是否已经改过 | `varchar2` | 80 | 是 | 密码是否已经改过 |
-| 2 | `created` | 创建时间 | `timestamp(6)` | 11 | 是 | 创建时间 |
-| 3 | `creater` | 创建人id | `integer` | - | 是 | 创建人id |
-| 4 | `modified` | 修改时间 | `timestamp(6)` | 11 | 是 | 修改时间 |
-| 5 | `modifier` | 修改人id | `integer` | - | 是 | 修改人id |
-| 6 | `passwordlocktime` | 密码锁定时间 | `date` | 7 | 是 | 密码锁定时间 |
-| 7 | `salt` | 加盐 | `varchar2` | 800 | 是 | 加盐 |
-| 8 | `mobilecaflag` | 未知字段 | `varchar2` | 80 | 是 | 未知字段 |
-| 9 | `companystartdate` | 公司开始日期 | `char` | 10 | 是 | 公司开始日期 |
-| 10 | `companyworkyear` | 公司年限 | `number` | (4,2) | 是 | 公司年限 |
-| 11 | `workstartdate` | 工作开始日期 | `char` | 10 | 是 | 工作开始日期 |
-| 12 | `workyear` | 工作年限 | `number` | (4,2) | 是 | 工作年限 |
-| 13 | `secondarypwd` | 第二密码 | `varchar2` | 100 | 是 | 第二密码 |
-| 14 | `usesecondarypwd` | 使用第二密码 | `integer` | - | 是 | 使用第二密码 |
-| 15 | `usekind` | 用工性质 | `integer` | - | 是 | 用工性质 |
-| 16 | `jobcall` | 职称 | `integer` | - | 是 | 职称 |
-| 17 | `accumfundaccount` | 公积金帐号 | `varchar2` | 240 | 是 | 公积金帐号 |
-| 18 | `birthplace` | 出生地 | `varchar2` | 480 | 是 | 出生地 |
-| 19 | `folk` | 民族 | `varchar2` | 240 | 是 | 民族 |
-| 20 | `residentphone` | 居住地电话 | `varchar2` | 480 | 是 | 居住地电话 |
-| 21 | `residentpostcode` | 居住地邮编 | `varchar2` | 480 | 是 | 居住地邮编 |
-| 22 | `extphone` | 分机 | `varchar2` | 400 | 是 | 分机 |
-| 23 | `managerstr` | 所有上级 | `varchar2` | 1000 | 是 | 所有上级 |
-| 24 | `status` | 状态 | `integer` | - | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `haschangepwd` | 密码是否已经改过 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 密码是否已经改过 |
+| 2 | `created` | 创建时间 | `timestamp(6)` | 11 | 是 | 否 | 否 | - | - | 创建时间 |
+| 3 | `creater` | 创建人id | `integer` | - | 是 | 否 | 否 | - | - | 创建人id |
+| 4 | `modified` | 修改时间 | `timestamp(6)` | 11 | 是 | 否 | 否 | - | - | 修改时间 |
+| 5 | `modifier` | 修改人id | `integer` | - | 是 | 否 | 否 | - | - | 修改人id |
+| 6 | `passwordlocktime` | 密码锁定时间 | `date` | 7 | 是 | 否 | 否 | - | - | 密码锁定时间 |
+| 7 | `salt` | 加盐 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 加盐 |
+| 8 | `mobilecaflag` | 未知字段 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 未知字段 |
+| 9 | `companystartdate` | 公司开始日期 | `char` | 10 | 是 | 否 | 否 | - | - | 公司开始日期 |
+| 10 | `companyworkyear` | 公司年限 | `number` | (4,2) | 是 | 否 | 否 | - | - | 公司年限 |
+| 11 | `workstartdate` | 工作开始日期 | `char` | 10 | 是 | 否 | 否 | - | - | 工作开始日期 |
+| 12 | `workyear` | 工作年限 | `number` | (4,2) | 是 | 否 | 否 | - | - | 工作年限 |
+| 13 | `secondarypwd` | 第二密码 | `varchar2` | 100 | 是 | 否 | 否 | - | - | 第二密码 |
+| 14 | `usesecondarypwd` | 使用第二密码 | `integer` | - | 是 | 否 | 否 | - | - | 使用第二密码 |
+| 15 | `usekind` | 用工性质 | `integer` | - | 是 | 否 | 否 | - | - | 用工性质 |
+| 16 | `jobcall` | 职称 | `integer` | - | 是 | 否 | 否 | - | - | 职称 |
+| 17 | `accumfundaccount` | 公积金帐号 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 公积金帐号 |
+| 18 | `birthplace` | 出生地 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 出生地 |
+| 19 | `folk` | 民族 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 民族 |
+| 20 | `residentphone` | 居住地电话 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 居住地电话 |
+| 21 | `residentpostcode` | 居住地邮编 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 居住地邮编 |
+| 22 | `extphone` | 分机 | `varchar2` | 400 | 是 | 否 | 否 | - | - | 分机 |
+| 23 | `managerstr` | 所有上级 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 所有上级 |
+| 24 | `status` | 状态 | `integer` | - | 是 | 否 | 否 | - | - | 0：试用<br>1：正式<br>2：临时<br>3：试用延期<br>4：解聘<br>5：离职<br>6：退休<br>7：无效 |
+| 25 | `fax` | 传真 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 传真 |
+| 26 | `islabouunion` | 是否为工会会员 | `char` | 1 | 是 | 否 | 否 | - | - | 是否为工会会员 |
+| 27 | `weight` | 体重 | `integer` | - | 是 | 否 | 否 | - | - | 体重 |
+| 28 | `tempresidentnumber` | 暂住证号码 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 暂住证号码 |
+| 29 | `probationenddate` | 试用期结束日期 | `char` | 10 | 是 | 否 | 否 | - | - | 试用期结束日期 |
+| 30 | `countryid` | 国家id | `integer` | - | 是 | 否 | 否 | - | 1 | 国家id |
+| 31 | `passwdchgdate` | 密码改变日期 | `char` | 10 | 是 | 否 | 否 | - | - | 密码改变日期 |
+| 32 | `needusb` | 是否需要usb | `integer` | - | 是 | 否 | 否 | - | - | 是否需要usb |
+| 33 | `serial` | usb相关 | `varchar2` | 256 | 是 | 否 | 否 | - | - | usb相关 |
+| 34 | `account` | AD域账号 | `varchar2` | 60 | 是 | 否 | 否 | - | - | AD域账号 |
+| 35 | `lloginid` | 上次系统账号 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 上次系统账号 |
+| 36 | `needdynapass` | 是否使用动态密码 | `integer` | - | 是 | 否 | 否 | - | - | 是否使用动态密码 |
+| 37 | `dsporder` | 显示顺序 | `float` | 22 | 是 | 否 | 否 | - | - | 显示顺序 |
+| 38 | `passwordstate` | 动态密码状态 | `integer` | - | 是 | 否 | 否 | - | - | 0：启用，1：停止（默认），2：网段策略 |
+| 39 | `accounttype` | 帐号类型 | `integer` | - | 是 | 否 | 否 | - | - | 0或者为空:主账号,1:次账号 |
+| 40 | `belongto` | 所属主帐号 | `integer` | - | 是 | 否 | 否 | - | - | hrmreource表id |
+| 41 | `dactylogram` | 主指纹 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | 主指纹 |
+| 42 | `assistantdactylogram` | 次指纹 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | 次指纹 |
+| 43 | `passwordlock` | 密码锁定标记 | `integer` | - | 是 | 否 | 否 | - | - | 密码锁定标记 |
+| 44 | `sumpasswordwrong` | 连续错误次数 | `integer` | - | 是 | 否 | 否 | - | - | 连续错误次数 |
+| 45 | `oldpassword1` | 旧密码1 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 旧密码1 |
+| 46 | `oldpassword2` | 旧密码2 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 旧密码2 |
+| 47 | `msgstyle` | 未知字段 | `varchar2` | 160 | 是 | 否 | 否 | - | - | 未知字段 |
+| 48 | `messagerurl` | 人员头像存储地址 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 人员头像存储地址 |
+| 49 | `pinyinlastname` | 人员姓名拼音首字母 | `varchar2` | 50 | 是 | 否 | 否 | - | - | 人员姓名拼音首字母 |
+| 50 | `tokenkey` | 动态令牌序列号 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 动态令牌序列号 |
+| 51 | `userusbtype` | usb类型 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 1-微步key<br>2-海泰key<br>3-动态令牌<br>4-动态密码 |
+| 52 | `outkey` | 外键与集成相关 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 外键与集成相关 |
+| 53 | `adsjgs` | ad同步上级公司 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | ad同步上级公司 |
+| 54 | `adgs` | ad同步公司 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | ad同步公司 |
+| 55 | `adbm` | ad同步部门 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | ad同步部门 |
+| 56 | `mobileshowtype` | 移动电话显示类型 | `integer` | - | 是 | 否 | 否 | - | - | 移动电话显示类型 |
+| 57 | `usbstate` | usb启用策略 | `integer` | - | 是 | 否 | 否 | - | - | 0-启用<br>1-禁用<br>2-网段策略 |
+| 58 | `totalspace` | 未知字段 | `float` | 22 | 是 | 否 | 否 | - | 100 | 未知字段 |
+| 59 | `occupyspace` | 未知字段 | `float` | 22 | 是 | 否 | 否 | - | 0 | 未知字段 |
+| 60 | `ecology_pinyin_search` | 人员浏览按钮模糊搜索拼音首字母 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 人员浏览按钮模糊搜索拼音首字母 |
+| 61 | `isadaccount` | 是否是ad账号 | `char` | 1 | 是 | 否 | 否 | - | - | 是否是ad账号 |
+| 62 | `accountname` | 工资账号户名 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 工资账号户名 |
+| 63 | `id` | ID | `integer` | - | 否 | 否 | 否 | - | - | ID |
+| 64 | `loginid` | 系统登陆帐号 | `varchar2` | 60 | 是 | 否 | 否 | - | - | 系统登陆帐号 |
+| 65 | `password` | 系统登陆密码 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 系统登陆密码 |
+| 66 | `lastname` | 名 | `varchar2` | 60 | 是 | 否 | 否 | - | - | 名 |
+| 67 | `sex` | 性别 | `char` | 1 | 是 | 否 | 否 | - | - | 性别 |
+| 68 | `birthday` | 生日 | `char` | 10 | 是 | 否 | 否 | - | - | 生日 |
+| 69 | `nationality` | 国籍 | `integer` | - | 是 | 否 | 否 | - | - | 国籍 |
+| 70 | `systemlanguage` | 系统语言 | `integer` | - | 是 | 否 | 否 | - | - | 系统语言 |
+| 71 | `maritalstatus` | 婚姻状况 | `char` | 1 | 是 | 否 | 否 | - | - | 婚姻状况 |
+| 72 | `telephone` | 电话 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 电话 |
+| 73 | `mobile` | 手机 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 手机 |
+| 74 | `mobilecall` | 其他电话 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 其他电话 |
+| 75 | `email` | 电子邮件 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 电子邮件 |
+| 76 | `locationid` | 工作地点 | `integer` | - | 是 | 否 | 否 | - | - | 工作地点 |
+| 77 | `workroom` | 办公室 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 办公室 |
+| 78 | `homeaddress` | 家庭住址 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 家庭住址 |
+| 79 | `resourcetype` | 用户类别 | `char` | 1 | 是 | 否 | 否 | - | - | 用户类别 |
+| 80 | `startdate` | 合同开始日期 | `char` | 10 | 是 | 否 | 否 | - | - | 合同开始日期 |
+| 81 | `enddate` | 合同结束日期 | `char` | 10 | 是 | 否 | 否 | - | - | 合同结束日期 |
+| 82 | `jobtitle` | 岗位 | `integer` | - | 是 | 否 | 否 | - | - | 岗位 |
+| 83 | `jobactivitydesc` | 职责描述 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 职责描述 |
+| 84 | `joblevel` | 工作级别 | `integer` | - | 是 | 否 | 否 | - | - | 工作级别 |
+| 85 | `seclevel` | 安全级别 | `integer` | - | 是 | 否 | 否 | - | - | 安全级别 |
+| 86 | `departmentid` | 所属部门 | `integer` | - | 是 | 否 | 否 | - | - | 所属部门 |
+| 87 | `subcompanyid1` | 所属分部1 | `integer` | - | 是 | 否 | 否 | - | - | 所属分部1 |
+| 88 | `costcenterid` | 所属成本中心 | `integer` | - | 是 | 否 | 否 | - | - | 所属成本中心 |
+| 89 | `managerid` | 经理 | `integer` | - | 是 | 否 | 否 | - | - | 直接上级 |
+| 90 | `assistantid` | 助理 | `integer` | - | 是 | 否 | 否 | - | - | 助理 |
+| 91 | `bankid1` | 工资银行1 | `integer` | - | 是 | 否 | 否 | - | - | 工资银行1 |
+| 92 | `accountid1` | 工资帐号1 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 工资帐号1 |
+| 93 | `resourceimageid` | 照片id | `integer` | - | 是 | 否 | 否 | - | - | 人员的照片存放附件id，和文档附件imagefileid表关联 |
+| 94 | `createrid` | 创建人id | `integer` | - | 是 | 否 | 否 | - | - | 创建人id |
+| 95 | `createdate` | 创建日期 | `char` | 10 | 是 | 否 | 否 | - | - | 创建日期 |
+| 96 | `lastmodid` | 最后修改人id | `integer` | - | 是 | 否 | 否 | - | - | 最后修改人id |
+| 97 | `lastmoddate` | 最后修改日期 | `char` | 10 | 是 | 否 | 否 | - | - | 最后修改日期 |
+| 98 | `lastlogindate` | 最后登陆日期 | `char` | 10 | 是 | 否 | 否 | - | - | 最后登陆日期 |
+| 99 | `datefield1` | 自定义日期1 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 自定义日期1 |
+| 100 | `datefield2` | 自定义日期2 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 自定义日期2 |
+| 101 | `datefield3` | 自定义日期3 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 自定义日期3 |
+| 102 | `datefield4` | 自定义日期4 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 自定义日期4 |
+| 103 | `datefield5` | 自定义日期5 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 自定义日期5 |
+| 104 | `numberfield1` | 自定义数字1 | `float` | 22 | 是 | 否 | 否 | - | - | 自定义数字1 |
+| 105 | `numberfield2` | 自定义数字2 | `float` | 22 | 是 | 否 | 否 | - | - | 自定义数字2 |
+| 106 | `numberfield3` | 自定义数字3 | `float` | 22 | 是 | 否 | 否 | - | - | 自定义数字3 |
+| 107 | `numberfield4` | 自定义数字4 | `float` | 22 | 是 | 否 | 否 | - | - | 自定义数字4 |
+| 108 | `numberfield5` | 自定义数字5 | `float` | 22 | 是 | 否 | 否 | - | - | 自定义数字5 |
+| 109 | `textfield1` | 自定义文本1 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本1 |
+| 110 | `textfield2` | 自定义文本2 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本2 |
+| 111 | `textfield3` | 自定义文本3 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本3 |
+| 112 | `textfield4` | 自定义文本4 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本4 |
+| 113 | `textfield5` | 自定义文本5 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 自定义文本5 |
+| 114 | `tinyintfield1` | 自定义判断1 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断1 |
+| 115 | `tinyintfield2` | 自定义判断2 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断2 |
+| 116 | `tinyintfield3` | 自定义判断3 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断3 |
+| 117 | `tinyintfield4` | 自定义判断4 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断4 |
+| 118 | `tinyintfield5` | 自定义判断5 | `integer` | - | 是 | 否 | 否 | - | - | 自定义判断5 |
+| 119 | `certificatenum` | 身份证号码 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 身份证号码 |
+| 120 | `nativeplace` | 籍贯 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 籍贯 |
+| 121 | `educationlevel` | 学历 | `integer` | - | 是 | 否 | 否 | - | - | 学历 |
+| 122 | `bememberdate` | 入团时间 | `char` | 10 | 是 | 否 | 否 | - | - | 入团时间 |
+| 123 | `bepartydate` | 入党时间 | `char` | 10 | 是 | 否 | 否 | - | - | 入党时间 |
+| 124 | `workcode` | 编号 | `varchar2` | 480 | 是 | 否 | 否 | - | - | 编号 |
+| 125 | `regresidentplace` | 户口 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 户口 |
+| 126 | `healthinfo` | 健康状况 | `char` | 1 | 是 | 否 | 否 | - | - | 健康状况 |
+| 127 | `residentplace` | 居住地 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 居住地 |
+| 128 | `policy` | 政治面貌 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 政治面貌 |
+| 129 | `degree` | 学位 | `varchar2` | 240 | 是 | 否 | 否 | - | - | 学位 |
+| 130 | `height` | 身高 | `varchar2` | 80 | 是 | 否 | 否 | - | - | 身高 |

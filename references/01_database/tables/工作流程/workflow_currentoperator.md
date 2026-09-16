@@ -1,38 +1,51 @@
 # 泛微OA 数据表: `workflow_currentoperator`
 
-> ⚠️ 表结构不完整（已确证）
->
-> 本文件仅收录 **13** 个字段，缺少本表的基础列：`isprocessed`、`isremark`、`nodeid`、`receivedate`、`receivetime`、`requestid`、`userid`、`viewtype`
->
-> 判定依据：本仓库 `core_tables.md` 与 `sql_cookbook.md` 中明确引用了上述列，但本文档未收录。
-> 说明本文档是**部分收录**（很可能只含升级补丁新增的列），**不是完整表结构**。
->
-> **请勿直接依据本文档编写 SQL**。获取真实结构：
->
-> ```sql
-> SELECT column_name, data_type, data_length, nullable FROM user_tab_columns WHERE table_name = 'WORKFLOW_CURRENTOPERATOR' ORDER BY column_id;
-> ```
-<!-- audit-warning-end -->
-
-
+- **中文名称**: 工作流请求节点操作人信息表
 - **所属模块**: `工作流程`
 - **数据库表名**: `workflow_currentoperator`
-- **文档收录字段数**: `13`
+- **主键**: `id`
+- **字段数**: `39`
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `isprocessing` | 流程异步处理状态 | `char` | 1 | 是 | - |
-| 2 | `processuser` | 实际操作人 | `integer` | - | 是 | - |
-| 3 | `autodate` | 无 | `varchar2` | 1000 | 是 | - |
-| 4 | `autodatetime` | 无 | `varchar2` | 1000 | 是 | - |
-| 5 | `isbereject` | 是否退回 | `char` | 1 | 是 | - |
-| 6 | `isreject` | 是否为退回前的节点操作人 | `char` | 1 | 是 | 用于分叉流转日志显示（1：是，0或其它：否） |
-| 7 | `needwfback` | 需反馈 | `char` | 1 | 是 | - |
-| 8 | `lastisremark` | 用于保存流程暂停、撤销时，流程操作者isremark的值 | `char` | 1 | 是 | - |
-| 9 | `isreminded_csh` | 是否超时后提醒 | `char` | 1 | 是 | - |
-| 10 | `wfreminduser_csh` | 流程超时后提醒用户 | `varchar2` | 4000 | 是 | - |
-| 11 | `wfusertypes_csh` | 超时后的流程用户类型 | `varchar2` | 4000 | 是 | - |
-| 12 | `handleforwardid` | 用于保存流程转办记录id | `integer` | - | 是 | - |
-| 13 | `takisremark` | 用于记录意见征询标识 | `integer` | - | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `isprocessing` | 流程异步处理状态 | `char` | 1 | 是 | 否 | 否 | - | - | - |
+| 2 | `processuser` | 实际操作人 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 3 | `autodate` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 4 | `autodatetime` | 无 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 5 | `isbereject` | 是否退回 | `char` | 1 | 是 | 否 | 否 | - | - | - |
+| 6 | `isreject` | 是否为退回前的节点操作人 | `char` | 1 | 是 | 否 | 否 | - | - | 用于分叉流转日志显示（1：是，0或其它：否） |
+| 7 | `needwfback` | 需反馈 | `char` | 1 | 是 | 否 | 否 | - | - | - |
+| 8 | `lastisremark` | 用于保存流程暂停、撤销时，流程操作者isremark的值 | `char` | 1 | 是 | 否 | 否 | - | - | - |
+| 9 | `isreminded_csh` | 是否超时后提醒 | `char` | 1 | 是 | 否 | 否 | - | - | - |
+| 10 | `wfreminduser_csh` | 流程超时后提醒用户 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | - |
+| 11 | `wfusertypes_csh` | 超时后的流程用户类型 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | - |
+| 12 | `handleforwardid` | 用于保存流程转办记录id | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 13 | `takisremark` | 用于记录意见征询标识 | `integer` | - | 是 | 否 | 否 | - | - | 2：是意见征询接收人<br>-2：是未回复前意见征询人状态<br>0：是回复后意见征询人状态 |
+| 14 | `lastreminddatetime` | 用于记录上一次超时提醒的时间 | `varchar2` | 4000 | 是 | 否 | 否 | - | - | 格式：<br>id_yyyy-mm-dd hh24:mi:ss<br>多个之间用半角逗号隔开<br>id为workflow_nodelinkovertime表id |
+| 15 | `requestid` | 请求id | `integer` | - | 否 | 否 | 否 | - | - | - |
+| 16 | `userid` | 用户id | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 17 | `groupid` | 赋予每个操作人的标示，但是非会签会都一样是同一个值 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 18 | `workflowid` | 工作流id | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 19 | `workflowtype` | 工作流类型 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 20 | `isremark` | 操作类型 | `char` | 1 | 是 | 否 | 否 | - | - | 0：未操作<br>1：转发<br>2：已操作<br>4：归档<br>5：超时<br>8：抄送(不需提交)<br>9：抄送(需提交)<br>a: 意见征询<br>b: 回复<br>h: 转办<br>j: 转办提交 |
+| 21 | `usertype` | 用户类型 | `integer` | - | 是 | 否 | 否 | - | - | 1、人力资源<br>2、客户 |
+| 22 | `nodeid` | 操作节点id | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 23 | `agentorbyagentid` | 代理记录 | `integer` | - | 是 | 否 | 否 | - | - | 当前记录为被代理人记录时，显示代理人的id；<br>当前记录为代理人记录时，显示被代理人的id；<br>没有代理为-1 |
+| 24 | `agenttype` | 代理操作 | `char` | 1 | 是 | 否 | 否 | - | - | 0：没有代理<br>1：当前记录是被代理人记录(isremak=2或=4)；<br>2：当前记录是代理人记录（isremak值取决于代理人是否已经操作） |
+| 25 | `showorder` | 操作人的显示顺序 | `integer` | - | 是 | 否 | 否 | - | - | 从0开始 |
+| 26 | `receivedate` | 接收到的日期 | `char` | 10 | 是 | 否 | 否 | - | - | - |
+| 27 | `receivetime` | 接收到的时间 | `char` | 8 | 是 | 否 | 否 | - | - | - |
+| 28 | `viewtype` | 查看标志 | `integer` | - | 是 | 否 | 否 | - | - | 0：接收到流程且未查看过，显示红色new标记；<br>-1：查看过流程后又有新的未查看回复，显示黄色new标记；<br>-2：已查看过流程，不显示任何new标记； |
+| 29 | `iscomplete` | 标记流程是否归档 | `integer` | - | 是 | 否 | 否 | - | - | 0:未归档，1:归档 |
+| 30 | `islasttimes` | 操作人最后一次操作记录 | `integer` | - | 是 | 否 | 否 | - | - | 0：操作人在流程中多次出现，且本条记录不是操作人最后一次操作所用的纪录；<br>1：操作人在流程中出现一次；或操作人在流程中多次出现，且本条记录是操作人最后一次操作所用的纪录； |
+| 31 | `id` | 自增长id字段 | `integer` | - | 否 | 否 | 否 | - | - | - |
+| 32 | `operatedate` | 操作日期 | `char` | 10 | 是 | 否 | 否 | - | - | 未查看时为空；<br>查看后记录第一次查看时间；<br>操作后记录操作时间； |
+| 33 | `operatetime` | 操作时间 | `char` | 8 | 是 | 否 | 否 | - | - | 未查看时为空；<br>查看后记录第一次查看时间；<br>操作后记录操作时间； |
+| 34 | `groupdetailid` | 节点操作组里的操作人条件id | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 35 | `isreminded` | 是否已经超时提醒过 | `char` | 1 | 是 | 否 | 否 | - | - | 1、已经超时提醒 |
+| 36 | `isprocessed` | 是否已经超时处理过 | `char` | 1 | 是 | 否 | 否 | - | - | 1、自动流转<br>2：流转到指定对象<br>3：超时并未启用超时处理或自动流转失败 |
+| 37 | `wfreminduser` | 工作流超时提醒人 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 38 | `wfusertypes` | 工作流超时提醒人类型 | `varchar2` | 800 | 是 | 否 | 否 | - | - | - |
+| 39 | `preisremark` | 改变前的isremark | `char` | 1 | 是 | 否 | 否 | - | - | - |

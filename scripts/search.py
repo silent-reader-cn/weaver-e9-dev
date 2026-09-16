@@ -128,10 +128,12 @@ def iter_db():
         table = m.group(1) if m else os.path.splitext(os.path.basename(fp))[0]
         mm = re.search(r"所属模块\*\*\s*[:：]\s*`([^`]+)`", text)
         module = mm.group(1) if mm else os.path.basename(os.path.dirname(fp))
-        mc = re.search(r"文档收录字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
-            re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
+        mc = re.search(r"字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
+            re.search(r"(?:文档收录字段数|字段总数)\*\*\s*[:：]\s*`?(\d+)`?", text)
         ncol = mc.group(1) if mc else ""
-        meta = "模块: %s   文档收录字段数: %s" % (module, ncol or "-")
+        cnm = re.search(r"中文名称\*\*\s*[:：]\s*(.+)$", text, re.M)
+        cn = cnm.group(1).strip() if cnm else ""
+        meta = "模块: %s%s   字段数: %s" % (module, ("   中文名: " + cn) if cn else "", ncol or "-")
 
         warn = ""
         mw = re.search(r"缺少本表的基础列：(.+)", text)
@@ -292,11 +294,11 @@ def main(argv):
         print("找到 %d 条匹配（关键词: %s ；范围: %s）：\n"
               % (total, " ".join(terms), scope_txt))
 
-    # 块一 有全局性的数据质量限制，必须显式告知，避免误信残缺表结构
+    # 块一 的数据来源需要说明清楚，避免使用方误判可信度
     if "db" in scopes and any(r["scope"] == "db" for r in results):
-        print("> 注意：表结构文档为**部分收录**，可能缺列；`文档收录字段数` 只是本文件记录的行数，")
-        print("> 不等于表的真实列数。写 SQL 前请用 user_tab_columns 核对，详见 "
-              "references/01_database/_QUALITY.md\n")
+        print("> 表结构文档由上游**数据字典导出**重建，字段定义与其一致；")
+        print("> 如需与线上库比对：SELECT column_name, data_type, data_length, nullable")
+        print("> FROM user_tab_columns WHERE table_name = '表名(大写)' ORDER BY column_id;\n")
     for r in results:
         if brief:
             print("[%s] %s | %s" % (SCOPE_LABEL[r["scope"]], r["title"], r["file"]))

@@ -139,23 +139,17 @@ curl -X GET 'http://<oa>/api/<业务接口>' \
 - [`core_tables.md`](./references/01_database/core_tables.md) —— 最常用核心表（流程引擎、组织架构、知识文档）的表名/中文说明/关键字段/关联关系。
 - [`sql_cookbook.md`](./references/01_database/sql_cookbook.md) —— 生产级 SQL 模版：待办分页、审批流转历史、部门递归 CTE、主子表动态关联。
 
-> [!WARNING]
-> **`tables/` 下的表结构文档是「部分收录」，不是完整表结构。**
-> 很多表只记录了升级补丁新增的列，缺少 `CREATE TABLE` 的基础列。
-> 例如 `workflow_requestlog` 只收录了 1 列，`workflow_requestbase` 连 `requestid` 都没有。
-> **不要直接依据这些文档编写 SQL。** 先核对真实库：
+> `tables/` 下 **1,703 个表结构文档由上游「数据字典」导出全量重建**，字段信息完整：
+> 除列名/中文名/类型/长度/可空外，还含 **主键、是否为外键、是否自增长、外键信息、默认值**。
+> 解析后的原始数据存档在 [`_source/db_dictionary.json`](./references/01_database/_source/db_dictionary.json)。
+> 注意 `1,703` 是文件数，去重后为 **1,691 张唯一表**——12 张考勤表在
+> `E9新版考勤表结构` 与 `人力资源` 下各有一份。
+>
+> 如需与线上库比对：
 > ```sql
 > SELECT column_name, data_type, data_length, nullable
 > FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE' ORDER BY column_id;
 > ```
-> 文档里的 `文档收录字段数` 是**本文件记录了几行**，不等于表的真实列数。
-> 检索时脚本会自动提示；已确证不完整的表清单见
-> [`_QUALITY.md`](./references/01_database/_QUALITY.md)。
-
-> `tables/` 下 1,699 个表定义文件已统一为同一列格式
-> （`序号 | 列名 | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注`）。
-> 注意 `1,699` 是文件数，去重后为 1,687 张唯一表——12 张考勤表在
-> `E9新版考勤表结构` 与 `人力资源` 下各有一份。
 
 **块二 后端接口** 覆盖 8 个模块：工作流程 (45)、人力资源 (225)、知识管理 (60)、
 考勤 (107)、表单建模 (19)、门户管理 (76)、协作管理 (3)、邮件模块 (3)。

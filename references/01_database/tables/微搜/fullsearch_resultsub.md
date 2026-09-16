@@ -1,23 +1,27 @@
 # 泛微OA 数据表: `fullsearch_resultsub`
 
+- **中文名称**: 微搜结果提交信息表
 - **所属模块**: `微搜`
 - **数据库表名**: `fullsearch_resultsub`
-- **文档收录字段数**: `13`
+- **主键**: `id`
+- **字段数**: `13`
+
+> 说明：提交微搜结果信息
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | 主键 | `integer` | - | 否 | 主键 |
-| 2 | `createdate` | 创建日期 | `varchar2` | 20 | 否 | 创建日期 |
-| 3 | `createtime` | 创建时间 | `varchar2` | 20 | 否 | 创建时间 |
-| 4 | `searchkey` | 搜索关键字 | `varchar2` | 200 | 否 | 搜索关键字 |
-| 5 | `page` | 当前页 | `integer` | - | 否 | 当前页 |
-| 6 | `pagesize` | 每页条数 | `integer` | - | 否 | 每页条数 |
-| 7 | `searchtype` | 搜索类型 | `varchar2` | 20 | 否 | 搜索类型 |
-| 8 | `loginid` | 登录id | `varchar2` | 50 | 否 | 登录id |
-| 9 | `conditionstring` | 高级搜索条件 | `varchar2` | 200 | 否 | 高级搜索条件 |
-| 10 | `sort` | 排序条件 | `varchar2` | 20 | 否 | 排序条件 |
-| 11 | `contenttype` | 搜索范围 | `varchar2` | 20 | 否 | 搜索范围 |
-| 12 | `sourcetype` | 模块类型 | `varchar2` | 20 | 否 | 模块类型 |
-| 13 | `searchfield` | 搜索字段 | `varchar2` | 20 | 否 | 搜索字段 |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | 主键 | `integer` | - | 否 | 否 | 是 | - | - | 主键 |
+| 2 | `createdate` | 创建日期 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 创建日期 |
+| 3 | `createtime` | 创建时间 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 创建时间 |
+| 4 | `searchkey` | 搜索关键字 | `varchar2` | 200 | 否 | 否 | 否 | - | - | 搜索关键字 |
+| 5 | `page` | 当前页 | `integer` | - | 否 | 否 | 否 | - | - | 当前页 |
+| 6 | `pagesize` | 每页条数 | `integer` | - | 否 | 否 | 否 | - | - | 每页条数 |
+| 7 | `searchtype` | 搜索类型 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 搜索类型 |
+| 8 | `loginid` | 登录id | `varchar2` | 50 | 否 | 否 | 否 | - | - | 登录id |
+| 9 | `conditionstring` | 高级搜索条件 | `varchar2` | 200 | 否 | 否 | 否 | - | - | 高级搜索条件 |
+| 10 | `sort` | 排序条件 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 排序条件 |
+| 11 | `contenttype` | 搜索范围 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 搜索范围 |
+| 12 | `sourcetype` | 模块类型 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 模块类型 |
+| 13 | `searchfield` | 搜索字段 | `varchar2` | 20 | 否 | 否 | 否 | - | - | 搜索字段 |

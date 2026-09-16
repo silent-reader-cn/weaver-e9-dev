@@ -1,20 +1,22 @@
 # 泛微OA 数据表: `workflow_customreport`
 
+- **中文名称**: 报表分析报表数据
 - **所属模块**: `工作流程`
 - **数据库表名**: `workflow_customreport`
-- **文档收录字段数**: `10`
+- **主键**: `id`
+- **字段数**: `10`
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | 主键ID | `integer` | - | 否 | - |
-| 2 | `reportname` | 报表名称 | `varchar2` | 800 | 是 | - |
-| 3 | `formid` | 表单ID | `integer` | - | 否 | - |
-| 4 | `isbill` | 单据还是表单 | `char` | 2 | 否 | - |
-| 5 | `workflowid` | 流程ID | `varchar2` | 1000 | 是 | - |
-| 6 | `creater` | 报表创建人 | `integer` | - | 是 | - |
-| 7 | `createdate` | 创建日期 | `char` | 10 | 是 | - |
-| 8 | `createtime` | 创建时间 | `char` | 8 | 是 | - |
-| 9 | `lastupdatedate` | 最后修改日期 | `char` | 10 | 是 | - |
-| 10 | `lastupdatetime` | 最后修改时间 | `char` | 8 | 是 | - |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | 主键ID | `integer` | - | 否 | 否 | 否 | - | - | - |
+| 2 | `reportname` | 报表名称 | `varchar2` | 800 | 是 | 否 | 否 | - | - | - |
+| 3 | `formid` | 表单ID | `integer` | - | 否 | 否 | 否 | - | - | - |
+| 4 | `isbill` | 单据还是表单 | `char` | 2 | 否 | 否 | 否 | - | - | - |
+| 5 | `workflowid` | 流程ID | `varchar2` | 1000 | 是 | 否 | 否 | - | - | - |
+| 6 | `creater` | 报表创建人 | `integer` | - | 是 | 否 | 否 | - | - | - |
+| 7 | `createdate` | 创建日期 | `char` | 10 | 是 | 否 | 否 | - | - | - |
+| 8 | `createtime` | 创建时间 | `char` | 8 | 是 | 否 | 否 | - | - | - |
+| 9 | `lastupdatedate` | 最后修改日期 | `char` | 10 | 是 | 否 | 否 | - | - | - |
+| 10 | `lastupdatetime` | 最后修改时间 | `char` | 8 | 是 | 否 | 否 | - | - | - |

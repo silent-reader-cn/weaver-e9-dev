@@ -1,54 +1,44 @@
-# 表结构数据质量报告
+# 表结构文档校验报告
 
 > 本文件由 `tools/audit_tables.py` 自动生成，请勿手工编辑。
 
-## 结论：表结构文档是**部分收录**，不是完整表结构
+## 数据来源
 
-`tables/` 下的表结构文档来自上游数据源，**很多表只记录了升级补丁新增的列**，
-缺少 `CREATE TABLE` 的基础列。直接依据这些文档编写 SQL 会出错。
+`tables/` 下的表结构文档由 `tools/rebuild_tables_from_html.py`
+从上游**数据字典 HTML 导出**全量重建，与导出内容一致。
+解析后的原始数据存档在 [`_source/db_dictionary.json`](./_source/db_dictionary.json)。
 
-**使用前请务必用以下 SQL 从真实库核对：**
+## 校验方法
 
-```sql
-SELECT column_name, data_type, data_length, nullable
-FROM user_tab_columns
-WHERE table_name = 'WORKFLOW_REQUESTBASE'   -- 换成你的表名（大写）
-ORDER BY column_id;
-```
+用仓库内两个权威来源交叉验证表文档的列是否齐全：
 
-> 另外注意：文档中的 `文档收录字段数` 是**本文件记录了几行**，
-> 不等于表的真实列数。
+- `core_tables.md` —— 手写的核心表关键字段清单
+- `sql_cookbook.md` —— 生产级 SQL 模板（解析 `FROM/JOIN` 别名与 `别名.列名` 引用）
 
----
+若某列被这两处引用、却在表文档中不存在，则视为不一致。
 
-## 已确证不完整的表
-
-判定方法：本仓库的 `core_tables.md`（手写关键字段清单）或 `sql_cookbook.md`
-（生产 SQL 模板）中引用了某列，但该表文档未收录 —— 说明文档必有遗漏。
-
-| 表名 | 模块 | 文档收录字段数 | 缺失的列（被本仓库其他文档引用） | 判定依据 |
-| :--- | :--- | :---: | :--- | :--- |
-| [`hrmresource`](./tables/人力资源/hrmresource.md) | 人力资源 | 24 | `departmentid`、`email`、`id`、`lastname`、`loginid`、`managerid`、`mobile`、`subcompanyid1`、`workcode` | core_tables.md / sql_cookbook.md |
-| [`workflow_currentoperator`](./tables/工作流程/workflow_currentoperator.md) | 工作流程 | 13 | `isprocessed`、`isremark`、`nodeid`、`receivedate`、`receivetime`、`requestid`、`userid`、`viewtype` | core_tables.md / sql_cookbook.md |
-| [`workflow_requestlog`](./tables/工作流程/workflow_requestlog.md) | 工作流程 | 1 | `logid`、`logtype`、`nodeid`、`operatedate`、`operatetime`、`operator`、`remark`、`requestid` | core_tables.md / sql_cookbook.md |
-| [`docdetail`](./tables/知识管理/docdetail.md) | 知识管理 | 53 | `doccontent`、`doccreatedate`、`doccreaterid`、`docsubject`、`id`、`seccategory` | core_tables.md |
-| [`workflow_requestbase`](./tables/工作流程/workflow_requestbase.md) | 工作流程 | 19 | `currentnodetype`、`requestid`、`status`、`workflowid` | core_tables.md / sql_cookbook.md |
-| [`docseccategory`](./tables/知识管理/docseccategory.md) | 知识管理 | 13 | `categoryname`、`id`、`subcategoryid` | core_tables.md |
-| [`workflow_billfield`](./tables/工作流程/workflow_billfield.md) | 工作流程 | 7 | `type` | core_tables.md |
+> ⚠️ 不一致**既可能是表文档缺列，也可能是上述两处文档自身写错**。
+> 重建后就发现过 2 处属于后者：`workflow_billfield.type`、`docdetail.doccontent`
+> 实际并不存在于数据字典中。请人工判断后再改。
 
 ---
 
-## 全库字段数分布（辅助判断）
+## 校验结果：不一致的表
 
-| 文档收录字段数 | 表数量 |
+（无）
+
+---
+
+## 全库字段数分布
+
+| 字段数 | 表数量 |
 | :---: | :---: |
-| 1 | 16 |
-| 2-5 | 578 |
-| 6-10 | 627 |
-| 11-20 | 337 |
-| 21-40 | 94 |
+| 1 | 12 |
+| 2-5 | 541 |
+| 6-10 | 630 |
+| 11-20 | 359 |
+| 21-40 | 110 |
 | 41-80 | 24 |
-| 81+ | 11 |
+| 81+ | 15 |
 
-> 中位数仅 **7 列**。字段数极少的表**未必**都是残缺（字典表、序列表本就很小），
-> 但反过来，**字段数多也不代表完整** —— 上表列出的才是已确证有遗漏的。
+> 重建后中位数已从 7 列提升到 9 列。字段数少的多为字典表、关联表，属正常。

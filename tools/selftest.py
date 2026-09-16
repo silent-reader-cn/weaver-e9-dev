@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
 import search as S  # noqa: E402
 
-EXPECT = {"api": 538, "db": 1699, "js": 138}
+EXPECT = {"api": 538, "db": 1703, "js": 138}
 # int / auth 按 `##` 小节切块，条目数 > 文件数，故只校验文件数与下限
 EXPECT_FILES = {"int": 4, "auth": 2}
 PASS, FAIL = [], []
@@ -40,6 +40,16 @@ def check(name, ok, detail=""):
     (PASS if ok else FAIL).append(name)
     print("  [%s] %s%s" % ("PASS" if ok else "FAIL", name,
                            ("  -> " + detail) if detail and not ok else ""))
+
+
+def split_cells(line):
+    """按 Markdown 表格切分单元格，正确跳过转义的 `\\|`。"""
+    s = line.strip()
+    if s.startswith("|"):
+        s = s[1:]
+    if s.endswith("|"):
+        s = s[:-1]
+    return re.split(r"(?<!\\)\|", s)
 
 
 def haystack(rec):
@@ -225,44 +235,62 @@ def main():
     check("截断时报告真实总数", bool(m) and int(m.group(1)) > 5,
           "输出: %s" % out.split("\n")[0])
 
-    # ---------------- T8 表结构可信度标注 ----------------
-    print("\nT8 表结构可信度标注（tools/audit_tables.py 的产物是否一致）")
+    # ---------------- T8 表结构文档质量 ----------------
+    print("\nT8 表结构文档（由数据字典导出重建）")
     import glob as _glob
     tab_files = _glob.glob(os.path.join(
         ROOT, "references", "01_database", "tables", "**", "*.md"), recursive=True)
 
-    stale = [f for f in tab_files
-             if "字段总数" in open(f, encoding="utf-8").read()]
-    check("误导性标签 `字段总数` 已全部改名", not stale,
-          "仍有 %d 个文件未改: %s" % (len(stale), [os.path.basename(x) for x in stale[:3]]))
+    legacy = [f for f in tab_files
+              if ("字段总数" in open(f, encoding="utf-8").read()
+                  or "文档收录字段数" in open(f, encoding="utf-8").read())]
+    check("标签已统一为 `字段数`", not legacy,
+          "仍有 %d 个文件用旧标签: %s" % (len(legacy), [os.path.basename(x) for x in legacy[:3]]))
 
-    warned = []
+    no_cn = [f for f in tab_files
+             if not re.search(r"(?m)^-\s*\*\*中文名称\*\*\s*[:：]\s*\S",
+                              open(f, encoding="utf-8").read())]
+    check("每张表都有中文名称", not no_cn,
+          "%d 张缺中文名: %s" % (len(no_cn), [os.path.basename(x) for x in no_cn[:3]]))
+
+    no_pk = [f for f in tab_files
+             if not re.search(r"(?m)^-\s*\*\*主键\*\*", open(f, encoding="utf-8").read())]
+    print("      无主键声明的表: %d 个（存根表与无主键表属正常）" % len(no_pk))
+
+    # 列定义必须是 11 列格式（序号|列名|中文名称|类型|长度|可空|外键|自增长|外键信息|默认值|说明）
+    bad_fmt = []
     for f in tab_files:
-        t = open(f, encoding="utf-8").read()
-        if "⚠️ 表结构不完整" in t:
-            warned.append((f, "缺少本表的基础列：" in t))
-    bad = [f for f, ok in warned if not ok]
-    check("警告块格式一致（含缺失列清单）", not bad,
-          "%d 个警告块缺缺失列清单" % len(bad))
-    print("      带警告的表文件: %d 个" % len(warned))
+        for ln in open(f, encoding="utf-8").read().split("\n"):
+            if re.match(r"^\|\s*\d+\s*\|", ln):
+                if len(split_cells(ln)) != 11:
+                    bad_fmt.append(os.path.basename(f))
+                    break
+    check("列定义均为 11 列格式", not bad_fmt,
+          "%d 个文件列数不符: %s" % (len(bad_fmt), bad_fmt[:3]))
+
+    warned = [f for f in tab_files
+              if "⚠️ 表结构不完整" in open(f, encoding="utf-8").read()]
+    check("无残留的「不完整」警告块", not warned,
+          "仍有 %d 个警告块: %s" % (len(warned), [os.path.basename(x) for x in warned[:3]]))
 
     q = os.path.join(ROOT, "references", "01_database", "_QUALITY.md")
-    check("质量报告 _QUALITY.md 存在", os.path.exists(q))
-    if os.path.exists(q):
-        qt = open(q, encoding="utf-8").read()
-        n_doc = len(re.findall(r"(?m)^\| \[`", qt))
-        check("质量报告条目数与实际警告数一致",
-              n_doc == len({os.path.basename(f) for f, _ in warned}),
-              "报告 %d 条 vs 实际 %d 张" % (n_doc, len({os.path.basename(f) for f, _ in warned})))
+    check("校验报告 _QUALITY.md 存在", os.path.exists(q))
 
-    # 检索残缺表时必须带出警告
+    src_json = os.path.join(ROOT, "references", "01_database", "_source", "db_dictionary.json")
+    check("源数据存档 db_dictionary.json 存在", os.path.exists(src_json))
+    if os.path.exists(src_json):
+        import json as _json
+        d = _json.load(open(src_json, encoding="utf-8"))
+        n_src = d["table_count"]
+        check("存档表数 == 实际表文件数", n_src == len(tab_files),
+              "存档 %d vs 文件 %d" % (n_src, len(tab_files)))
+
     out = subprocess.run(
         [py, os.path.join(ROOT, "scripts", "search.py"),
          "workflow_requestbase", "--scope", "db", "--limit", "1"],
         capture_output=True, text=True, encoding="utf-8").stdout
-    check("检索残缺表时自动带出警告", "⚠️ 本表文档不完整" in out,
-          "输出未见警告")
-    check("db 检索带全局数据质量提示", "部分收录" in out, "输出未见全局提示")
+    check("检索结果带出中文名", "中文名:" in out, "输出未见中文名")
+    check("db 检索带数据来源说明", "数据字典" in out, "输出未见来源说明")
 
     print("\n" + "=" * 74)
     print("结果：%d 项通过，%d 项失败" % (len(PASS), len(FAIL)))

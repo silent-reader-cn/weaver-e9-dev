@@ -123,8 +123,8 @@ PY="<你的 python3 路径>"
 "$PY" tools/selftest.py
 ```
 
-33 项检查，逐条验证 538 接口 / 1699 表 / 138 方法的可召回性、内容完整性，
-以及表结构可信度标注的一致性。
+36 项检查，逐条验证 538 接口 / 1,703 表 / 138 方法的可召回性、内容完整性，
+以及表文档格式的一致性。
 
 ### 4. 调用 E9 接口
 
@@ -188,9 +188,11 @@ weaver-e9-dev/
     ├── convert_apis.py            #   一次性：oa-dev 接口 → 本仓库文档范式
     ├── build_blocks.py            #   一次性：数据库/前端/集成内容归位
     ├── normalize_tables.py        #   一次性：统一两套表结构列格式
-    ├── audit_tables.py            #   表结构可信度审计 + 标注 + 生成 _QUALITY.md
+    ├── rebuild_tables_from_html.py #  从数据字典 HTML 重建表文档 + 生成 _source/*.json
+    ├── parse_dict_html.py         #   数据字典 HTML 解析器（供 rebuild 调用）
+    ├── audit_tables.py            #   表结构一致性校验 + 生成 _QUALITY.md
     ├── deprecate_original_repos.py #  一次性：给两个原仓库 README 插入归档提示
-    └── selftest.py                #   自检（33 项）
+    └── selftest.py                #   自检（36 项）
 ```
 
 ---
@@ -236,42 +238,34 @@ weaver-e9-dev/
 | 接口数 | 538（并集，比 `weaver-e9-backend` 多 43 个） |
 | 接口文档格式 | 全部重排为统一范式，使 538 个接口可被同一脚本检索 |
 | 描述信息 | 原 `weaver-oa-dev` 中 34 个接口同时含「功能说明」与「补充说明」，两者均保留 |
-| **表结构列格式** | 源仓库混有**两套导出格式**（主流格式 1636 张 + 右移格式 62 张 + 1 张同构），已统一，涉及 63 个文件 / 584 行；逐字段比对确认 **0 处取值变化** |
+| **表结构数据** | 原派生数据丢失了 **1,182 列 / 92 张表**、全部表的中文名与主键、以及 4 个列属性；已从上游数据字典 HTML **全量重建**（18,156 列），并补回 4 张被整个丢弃的存根表 |
 | 目录副本 | 由 3 份（`docs/` + `skills/` + `.agents/`）合并为 1 份 |
 | 检索脚本 | 由 2 套（JS + Python，基于 JSON 字典）合并为 1 套统一脚本（基于 Markdown） |
 | 截断提示 | 修复原脚本「截断时谎报总数」的问题（命中 137 条却只报 20 条） |
 | 已移除 | `apis_dictionary.json`、`db_dictionary.json`、重复的 JS/Python 检索脚本、三份冗余副本 |
 | 已保留 | Node.js / Python 鉴权 SDK、全部 JS 与 Java 示例 |
 
-### 关于「1,699 张表」
+### 关于「1,703 张表」
 
-> [!WARNING]
-> **表结构文档是「部分收录」，不是完整表结构。**
->
-> `references/01_database/tables/` 下的文档来自上游数据源，**很多表只记录了升级补丁新增的列**，
-> 缺少 `CREATE TABLE` 的基础列。直接依据它们编写 SQL 会出错：
->
-> | 表 | 文档收录 | 实际情况 |
-> |---|---:|---|
-> | `workflow_requestlog` | **1 列** | 本仓库 `core_tables.md` 明确写了它有 `requestid`/`nodeid`/`operator`/`remark`/`logtype` |
-> | `workflow_requestbase` | 19 列 | 缺 `requestid`（主键）、`workflowid`、`status`、`currentnodetype` |
-> | `hrmresource` | 24 列 | 缺 `id`、`lastname`、`loginid`、`departmentid` 等 9 个基础列 |
->
-> **写 SQL 前请先核对真实库：**
->
-> ```sql
-> SELECT column_name, data_type, data_length, nullable
-> FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE' ORDER BY column_id;
-> ```
->
-> - 文档中的 `文档收录字段数` 是**本文件记录了几行**，不等于表的真实列数。
-> - 检索脚本会自动带出警告，无需自行排查。
-> - 已确证不完整的表清单与判定依据： [`_QUALITY.md`](./references/01_database/_QUALITY.md)。
+表结构文档由上游**「数据字典」导出全量重建**，字段信息完整：
 
-`1,699` 是**表定义文件数**；去重后为 **1,687 张唯一表**。有 12 个表名跨模块重复，
+| 层级 | 收录内容 |
+|---|---|
+| 表级 | 中文名称、所属模块、主键、说明 |
+| 列级 | 序号、列名、中文名称、数据类型、长度、允许为空、**是否为外键**、**是否自增长**、**外键信息**、**默认值**、说明 |
+
+解析后的原始数据存档在 [`_source/db_dictionary.json`](./references/01_database/_source/db_dictionary.json)（约 5 MB），
+可用 `tools/rebuild_tables_from_html.py` 从数据字典 HTML 重新生成。
+
+`1,703` 是**表定义文件数**；去重后为 **1,691 张唯一表**。有 12 个表名跨模块重复，
 全部集中在 `E9新版考勤表结构` 与 `人力资源` 之间（kq_* 考勤表）。
-列格式统一后，这 12 张表在两处的字段名/中文说明/类型/长度/备注已完全一致，
-仅 `允许为空` 一列不同——因为源格式本身不含该列，属信息缺失而非丢失。
+
+如需与线上库比对：
+
+```sql
+SELECT column_name, data_type, data_length, nullable
+FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE' ORDER BY column_id;
+```
 
 ### 已知的源数据问题（保留原样，未擅自修改）
 

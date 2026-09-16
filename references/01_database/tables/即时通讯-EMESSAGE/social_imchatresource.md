@@ -1,20 +1,24 @@
 # 泛微OA 数据表: `social_imchatresource`
 
-- **所属模块**: `即时通讯-EMESSAGE`
+- **中文名称**: 聊天时发送的流程表
+- **所属模块**: `即时通讯/EMESSAGE`
 - **数据库表名**: `social_imchatresource`
-- **文档收录字段数**: `10`
+- **主键**: `id`
+- **字段数**: `10`
+
+> 说明：在聊天过程中发送的文档或者流程
 
 ## 表结构定义 (Schema)
 
-| 序号 | 列名 (Column) | 中文说明 | 数据类型 | 长度 | 允许为空 | 字段备注 |
-| :---: | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | `id` | 主键id | `integer` | - | 是 | 主键id |
-| 2 | `resourceid` | 文档或者流程id | `integer` | - | 是 | 流程id |
-| 3 | `resourcename` | 文档或者流程的标题 | `varchar2` | 800 | 是 | 流程的标题 |
-| 4 | `resourcedesc` | 文档或者流程详细信息 | `varchar2` | 800 | 是 | 流程详细信息 |
-| 5 | `resourcetype` | 文档或者流程 | `char` | 2 | 是 | 文档或者流程 |
-| 6 | `creatorid` | 发送人id | `integer` | - | 是 | 发送人id |
-| 7 | `createtime` | 创建时间 | `varchar2` | 800 | 是 | 创建时间 |
-| 8 | `targetid` | 接收者 | `varchar2` | 800 | 是 | 接收者 |
-| 9 | `targettype` | 接收者类型 | `varchar2` | 160 | 是 | 群或者对话 |
-| 10 | `memberids` | 权限id集合 | `varchar2` | 1000 | 是 | 权限id集合 |
+| 序号 | 列名 (Column) | 中文名称 | 数据类型 | 长度 | 允许为空 | 是否为外键 | 是否自增长 | 外键信息 | 默认值 | 说明 |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :--- | :--- |
+| 1 | `id` | 主键id | `integer` | - | 是 | 否 | 否 | - | - | 主键id |
+| 2 | `resourceid` | 文档或者流程id | `integer` | - | 是 | 否 | 否 | - | - | 流程id |
+| 3 | `resourcename` | 文档或者流程的标题 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 流程的标题 |
+| 4 | `resourcedesc` | 文档或者流程详细信息 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 流程详细信息 |
+| 5 | `resourcetype` | 文档或者流程 | `char` | 2 | 是 | 否 | 否 | - | - | 文档或者流程 |
+| 6 | `creatorid` | 发送人id | `integer` | - | 是 | 否 | 否 | - | - | 发送人id |
+| 7 | `createtime` | 创建时间 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 创建时间 |
+| 8 | `targetid` | 接收者 | `varchar2` | 800 | 是 | 否 | 否 | - | - | 接收者 |
+| 9 | `targettype` | 接收者类型 | `varchar2` | 160 | 是 | 否 | 否 | - | - | 群或者对话 |
+| 10 | `memberids` | 权限id集合 | `varchar2` | 1000 | 是 | 否 | 否 | - | - | 权限id集合 |
