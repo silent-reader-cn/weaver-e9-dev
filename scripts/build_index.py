@@ -60,8 +60,11 @@ def build_db_index():
         table = m.group(1) if m else os.path.splitext(os.path.basename(fp))[0]
         mm = re.search(r"所属模块\*\*\s*[:：]\s*`([^`]+)`", text)
         module = mm.group(1) if mm else os.path.basename(os.path.dirname(fp))
-        mc = re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
+        mc = re.search(r"文档收录字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
+            re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
         ncol = int(mc.group(1)) if mc else 0
+        # tools/audit_tables.py 写入的完整性警告
+        incomplete = "⚠️ 表结构不完整" in text
 
         cols = []
         for ln in text.split("\n"):
@@ -83,12 +86,28 @@ def build_db_index():
                 cols.append((name, "" if cn == "-" else cn))
 
         rel = os.path.relpath(fp, base).replace("\\", "/")
-        modules.setdefault(module, []).append((table, ncol, cols, rel))
+        modules.setdefault(module, []).append((table, ncol, cols, rel, incomplete))
 
     total = sum(len(v) for v in modules.values())
     L = ["# 数据库表总索引", "",
-         "> 共收录 **%d** 张表，覆盖 %d 个业务模块。索引由 `scripts/build_index.py` "
-         "从 `tables/` 下的 Markdown 自动生成，请勿手工编辑。" % (total, len(modules)),
+         "> 共收录 **%d** 张表（表定义文件数；去重后唯一表名见下），覆盖 %d 个业务模块。"
+         "索引由 `scripts/build_index.py` 从 `tables/` 下的 Markdown 自动生成，请勿手工编辑。"
+         % (total, len(modules)),
+         "",
+         "> [!WARNING]",
+         "> **这些表结构文档是「部分收录」，不是完整表结构。** 很多表只记录了升级补丁",
+         "> 新增的列，缺少 `CREATE TABLE` 的基础列。表中「文档收录字段数」是**本文件记录了几行**，",
+         "> 不等于表的真实列数。",
+         ">",
+         "> 写 SQL 前请用真实库核对：",
+         "> ```sql",
+         "> SELECT column_name, data_type, data_length, nullable",
+         "> FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE'",
+         "> ORDER BY column_id;",
+         "> ```",
+         ">",
+         "> 带 ⚠️ 的表已**确证不完整**（本仓库其他文档引用了它没收录的列），",
+         "> 完整清单与判定依据见 [`_QUALITY.md`](./_QUALITY.md)。",
          "",
          "> 检索表结构请用统一检索脚本（比翻本文件更快）：",
          "> ```bash",
@@ -113,16 +132,17 @@ def build_db_index():
         L.append("")
         L.append("> 本模块共收录 `%d` 张数据表。" % len(items))
         L.append("")
-        L.append("| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |")
+        L.append("| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |")
         L.append("| :---: | :--- | :---: | :--- | :--- |")
-        for i, (table, ncol, cols, rel) in enumerate(sorted(items), 1):
+        for i, (table, ncol, cols, rel, incomplete) in enumerate(sorted(items), 1):
             if cols:
                 head = "、".join("`%s`(%s)" % (c, cn or "-") for c, cn in cols[:4])
                 preview = head + (" 等共 %d 个字段" % ncol if ncol > 4 else "")
             else:
                 preview = "-"
-            L.append("| %d | `%s` | %d | %s | [%s](./%s) |"
-                     % (i, table, ncol, preview, os.path.basename(rel), rel))
+            flag = " ⚠️" if incomplete else ""
+            L.append("| %d | `%s`%s | %d | %s | [%s](./%s) |"
+                     % (i, table, flag, ncol, preview, os.path.basename(rel), rel))
         L.append("")
     write(os.path.join(base, "_INDEX.md"), L)
     return total, len(modules)

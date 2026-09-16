@@ -225,6 +225,45 @@ def main():
     check("截断时报告真实总数", bool(m) and int(m.group(1)) > 5,
           "输出: %s" % out.split("\n")[0])
 
+    # ---------------- T8 表结构可信度标注 ----------------
+    print("\nT8 表结构可信度标注（tools/audit_tables.py 的产物是否一致）")
+    import glob as _glob
+    tab_files = _glob.glob(os.path.join(
+        ROOT, "references", "01_database", "tables", "**", "*.md"), recursive=True)
+
+    stale = [f for f in tab_files
+             if "字段总数" in open(f, encoding="utf-8").read()]
+    check("误导性标签 `字段总数` 已全部改名", not stale,
+          "仍有 %d 个文件未改: %s" % (len(stale), [os.path.basename(x) for x in stale[:3]]))
+
+    warned = []
+    for f in tab_files:
+        t = open(f, encoding="utf-8").read()
+        if "⚠️ 表结构不完整" in t:
+            warned.append((f, "缺少本表的基础列：" in t))
+    bad = [f for f, ok in warned if not ok]
+    check("警告块格式一致（含缺失列清单）", not bad,
+          "%d 个警告块缺缺失列清单" % len(bad))
+    print("      带警告的表文件: %d 个" % len(warned))
+
+    q = os.path.join(ROOT, "references", "01_database", "_QUALITY.md")
+    check("质量报告 _QUALITY.md 存在", os.path.exists(q))
+    if os.path.exists(q):
+        qt = open(q, encoding="utf-8").read()
+        n_doc = len(re.findall(r"(?m)^\| \[`", qt))
+        check("质量报告条目数与实际警告数一致",
+              n_doc == len({os.path.basename(f) for f, _ in warned}),
+              "报告 %d 条 vs 实际 %d 张" % (n_doc, len({os.path.basename(f) for f, _ in warned})))
+
+    # 检索残缺表时必须带出警告
+    out = subprocess.run(
+        [py, os.path.join(ROOT, "scripts", "search.py"),
+         "workflow_requestbase", "--scope", "db", "--limit", "1"],
+        capture_output=True, text=True, encoding="utf-8").stdout
+    check("检索残缺表时自动带出警告", "⚠️ 本表文档不完整" in out,
+          "输出未见警告")
+    check("db 检索带全局数据质量提示", "部分收录" in out, "输出未见全局提示")
+
     print("\n" + "=" * 74)
     print("结果：%d 项通过，%d 项失败" % (len(PASS), len(FAIL)))
     if FAIL:

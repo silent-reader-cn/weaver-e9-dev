@@ -1,6 +1,21 @@
 # 数据库表总索引
 
-> 共收录 **1699** 张表，覆盖 26 个业务模块。索引由 `scripts/build_index.py` 从 `tables/` 下的 Markdown 自动生成，请勿手工编辑。
+> 共收录 **1699** 张表（表定义文件数；去重后唯一表名见下），覆盖 26 个业务模块。索引由 `scripts/build_index.py` 从 `tables/` 下的 Markdown 自动生成，请勿手工编辑。
+
+> [!WARNING]
+> **这些表结构文档是「部分收录」，不是完整表结构。** 很多表只记录了升级补丁
+> 新增的列，缺少 `CREATE TABLE` 的基础列。表中「文档收录字段数」是**本文件记录了几行**，
+> 不等于表的真实列数。
+>
+> 写 SQL 前请用真实库核对：
+> ```sql
+> SELECT column_name, data_type, data_length, nullable
+> FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE'
+> ORDER BY column_id;
+> ```
+>
+> 带 ⚠️ 的表已**确证不完整**（本仓库其他文档引用了它没收录的列），
+> 完整清单与判定依据见 [`_QUALITY.md`](./_QUALITY.md)。
 
 > 检索表结构请用统一检索脚本（比翻本文件更快）：
 > ```bash
@@ -48,7 +63,7 @@
 
 > 本模块共收录 `295` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `bill_hrmawardinfo` | 8 | `id`(ID)、`rptitle`(奖惩标题)、`resource_n`(员工id)、`rpdate`(奖惩日期) 等共 8 个字段 | [bill_hrmawardinfo.md](./tables/人力资源/bill_hrmawardinfo.md) |
 | 2 | `bill_hrmdismiss` | 7 | `id`(ID)、`resource_n`(申请人)、`dismissdate`(离职时间)、`docid`(离职合同) 等共 7 个字段 | [bill_hrmdismiss.md](./tables/人力资源/bill_hrmdismiss.md) |
@@ -236,7 +251,7 @@
 | 184 | `hrmrefusecount` | 6 | `id`(ID)、`refuse_date`(拒绝日期)、`refuse_year`(年份)、`refuse_month`(月份) 等共 6 个字段 | [hrmrefusecount.md](./tables/人力资源/hrmrefusecount.md) |
 | 185 | `hrmremindhistory` | 3 | `type`(类型)、`reminddate`(提醒时间)、`remindedresourceid`(人员id) | [hrmremindhistory.md](./tables/人力资源/hrmremindhistory.md) |
 | 186 | `hrmremindmsg` | 5 | `id`(ID)、`remindtype`(提醒类型)、`resourceid`(人员id)、`reminddate`(提醒日期) 等共 5 个字段 | [hrmremindmsg.md](./tables/人力资源/hrmremindmsg.md) |
-| 187 | `hrmresource` | 24 | `haschangepwd`(密码是否已经改过)、`created`(创建时间)、`creater`(创建人id)、`modified`(修改时间) 等共 24 个字段 | [hrmresource.md](./tables/人力资源/hrmresource.md) |
+| 187 | `hrmresource` ⚠️ | 24 | `haschangepwd`(密码是否已经改过)、`created`(创建时间)、`creater`(创建人id)、`modified`(修改时间) 等共 24 个字段 | [hrmresource.md](./tables/人力资源/hrmresource.md) |
 | 188 | `hrmresource_online` | 4 | `user_id`(人员id)、`date_time`(时间戳)、`online_flag`(人员在线标识)、`serverip`(服务地址IP) | [hrmresource_online.md](./tables/人力资源/hrmresource_online.md) |
 | 189 | `hrmresource_trigger` | 6 | `id`(ID)、`managerid`(经理id)、`departmentid`(部门id)、`subcompanyid1`(分部id) 等共 6 个字段 | [hrmresource_trigger.md](./tables/人力资源/hrmresource_trigger.md) |
 | 190 | `hrmresourcebasetab` | 10 | `id`(ID)、`groupname`(分组名称)、`grouplabel`(分组label)、`dsporder`(序列号) 等共 10 个字段 | [hrmresourcebasetab.md](./tables/人力资源/hrmresourcebasetab.md) |
@@ -350,7 +365,7 @@
 
 > 本模块共收录 `236` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `shareinnerwfcreate` | 7 | `id`(ID)、`gid`(操作者明细表id)、`workflowid`(流程id)、`content`(相关对象id) 等共 7 个字段 | [shareinnerwfcreate.md](./tables/工作流程/shareinnerwfcreate.md) |
 | 2 | `user_defaultorder_setting` | 8 | `id`(id)、`userid`(用户uid)、`usertype`(用户类型)、`columnkey`(列键名) 等共 8 个字段 | [user_defaultorder_setting.md](./tables/工作流程/user_defaultorder_setting.md) |
@@ -372,7 +387,7 @@
 | 18 | `workflow_bdf_tab` | 6 | `workflowid`(流程ID)、`fieldid`(字段ID)、`tabkey`(浏览框tab唯一key)、`showtab`(是否显示) 等共 6 个字段 | [workflow_bdf_tab.md](./tables/工作流程/workflow_bdf_tab.md) |
 | 19 | `workflow_bill` | 17 | `clazz`(系统单据继承类)、`id`(ID)、`namelabel`(单据显示名称)、`tablename`(对应的主表名称) 等共 17 个字段 | [workflow_bill.md](./tables/工作流程/workflow_bill.md) |
 | 20 | `workflow_billdetailtable` | 5 | `id`(ID)、`billid`(单号id)、`tablename`(表名)、`title`(标题) 等共 5 个字段 | [workflow_billdetailtable.md](./tables/工作流程/workflow_billdetailtable.md) |
-| 21 | `workflow_billfield` | 7 | `fieldshowtypes`(显示类型)、`id`(ID)、`billid`(单据id)、`fieldname`(数据库表字段名称) 等共 7 个字段 | [workflow_billfield.md](./tables/工作流程/workflow_billfield.md) |
+| 21 | `workflow_billfield` ⚠️ | 7 | `fieldshowtypes`(显示类型)、`id`(ID)、`billid`(单据id)、`fieldname`(数据库表字段名称) 等共 7 个字段 | [workflow_billfield.md](./tables/工作流程/workflow_billfield.md) |
 | 22 | `workflow_billfunctionlist` | 4 | `billid`(单据id)、`indaffirmance`(是否支持提交确认)、`indmouldtype`(是否支持图形化)、`indshowchart`(是否支持提交后显示流程图) | [workflow_billfunctionlist.md](./tables/工作流程/workflow_billfunctionlist.md) |
 | 23 | `workflow_browdef` | 5 | `workflowid`(流程id)、`fieldid`(字段id)、`viewtype`(字段种类)、`fieldtype`(字段类型) 等共 5 个字段 | [workflow_browdef.md](./tables/工作流程/workflow_browdef.md) |
 | 24 | `workflow_browdef_field` | 10 | `configid`(配置id)、`workflowid`(流程id)、`fieldid`(字段id)、`viewtype`(字段种类) 等共 10 个字段 | [workflow_browdef_field.md](./tables/工作流程/workflow_browdef_field.md) |
@@ -406,7 +421,7 @@
 | 52 | `workflow_createtaskgroup` | 4 | `id`(ID)、`createtaskid`(创建任务id)、`groupid`(组id)、`isused`(是否启用) | [workflow_createtaskgroup.md](./tables/工作流程/workflow_createtaskgroup.md) |
 | 53 | `workflow_crmcssfile` | 5 | `id`(ID)、`cssname`(css文件显示名)、`realfilename`(css文件在服务器上的名字)、`realpath`(css在服务器上的存储全路径) 等共 5 个字段 | [workflow_crmcssfile.md](./tables/工作流程/workflow_crmcssfile.md) |
 | 54 | `workflow_cssdetail` | 22 | `detailid`(id)、`outerbordercolor`(外边框颜色)、`outerbordersize`(外边框宽度)、`requestnamesize`(流程标题字号) 等共 22 个字段 | [workflow_cssdetail.md](./tables/工作流程/workflow_cssdetail.md) |
-| 55 | `workflow_currentoperator` | 13 | `isprocessing`(流程异步处理状态)、`processuser`(实际操作人)、`autodate`(无)、`autodatetime`(无) 等共 13 个字段 | [workflow_currentoperator.md](./tables/工作流程/workflow_currentoperator.md) |
+| 55 | `workflow_currentoperator` ⚠️ | 13 | `isprocessing`(流程异步处理状态)、`processuser`(实际操作人)、`autodate`(无)、`autodatetime`(无) 等共 13 个字段 | [workflow_currentoperator.md](./tables/工作流程/workflow_currentoperator.md) |
 | 56 | `workflow_curroperator_dellog` | 40 | `autodate`(参考workflow_curroperator表)、`autodatetime`(参考workflow_curroperator表)、`isbereject`(参考workflow_curroperator表)、`isprocessing`(参考workflow_curroperator表) 等共 40 个字段 | [workflow_curroperator_dellog.md](./tables/工作流程/workflow_curroperator_dellog.md) |
 | 57 | `workflow_custfieldname` | 5 | `workflowid`(工作流id)、`nodeid`(节点id)、`languageid`(系统语言)、`fieldname`(类型标识名称) 等共 5 个字段 | [workflow_custfieldname.md](./tables/工作流程/workflow_custfieldname.md) |
 | 58 | `workflow_custom` | 8 | `id`(ID)、`formid`(表单/单据id)、`isbill`(是否单据)、`querytypeid`(自定义查询种类) 等共 8 个字段 | [workflow_custom.md](./tables/工作流程/workflow_custom.md) |
@@ -521,11 +536,11 @@
 | 167 | `workflow_reqbrowextrainfo` | 7 | `id`(ID)、`requestid`(请求id)、`fieldid`(字段id)、`type`(类型) 等共 7 个字段 | [workflow_reqbrowextrainfo.md](./tables/工作流程/workflow_reqbrowextrainfo.md) |
 | 168 | `workflow_request_fix_flowtime` | 14 | `requestid`(请求ID)、`workflowid`(流程ID)、`workflowtype`(流程类型)、`createdate`(创建日期) 等共 14 个字段 | [workflow_request_fix_flowtime.md](./tables/工作流程/workflow_request_fix_flowtime.md) |
 | 169 | `workflow_request_flowtime` | 14 | `onlysave`(只是新建保存)、`requestid`(请求ID)、`workflowid`(流程ID)、`workflowtype`(流程类型) 等共 14 个字段 | [workflow_request_flowtime.md](./tables/工作流程/workflow_request_flowtime.md) |
-| 170 | `workflow_requestbase` | 19 | `totalgroups`(总共需要的操作者组数)、`requestname`(请求名称)、`creater`(创建人)、`createdate`(创建日期) 等共 19 个字段 | [workflow_requestbase.md](./tables/工作流程/workflow_requestbase.md) |
+| 170 | `workflow_requestbase` ⚠️ | 19 | `totalgroups`(总共需要的操作者组数)、`requestname`(请求名称)、`creater`(创建人)、`createdate`(创建日期) 等共 19 个字段 | [workflow_requestbase.md](./tables/工作流程/workflow_requestbase.md) |
 | 171 | `workflow_requestbase_dellog` | 40 | `isvalid`(是否有效)、`requestid`(请求id)、`workflowid`(流程id)、`lastnodeid`(最后操作节点id) 等共 40 个字段 | [workflow_requestbase_dellog.md](./tables/工作流程/workflow_requestbase_dellog.md) |
 | 172 | `workflow_requestdeletelog` | 10 | `isold`(是否老数据)、`isvalid`(是否恢复)、`request_id`(请求id)、`request_name`(请求名称) 等共 10 个字段 | [workflow_requestdeletelog.md](./tables/工作流程/workflow_requestdeletelog.md) |
 | 173 | `workflow_requestexception` | 7 | `keyid`(自增ID)、`requestid`(请求ID)、`nodeid`(节点ID)、`destnodeid`(目标节点ID) 等共 7 个字段 | [workflow_requestexception.md](./tables/工作流程/workflow_requestexception.md) |
-| 174 | `workflow_requestlog` | 1 | `issubmitdirect`(退回后再提交直达本节点) | [workflow_requestlog.md](./tables/工作流程/workflow_requestlog.md) |
+| 174 | `workflow_requestlog` ⚠️ | 1 | `issubmitdirect`(退回后再提交直达本节点) | [workflow_requestlog.md](./tables/工作流程/workflow_requestlog.md) |
 | 175 | `workflow_requestlog_dellog` | 33 | `isvalid`(是否有效)、`issubmitdirect`(是否启用提交至退回节点)、`remarkquote`(签字意见引用)、`fulltextannotation`(全文批注) 等共 33 个字段 | [workflow_requestlog_dellog.md](./tables/工作流程/workflow_requestlog_dellog.md) |
 | 176 | `workflow_requestlogatinfo` | 11 | `id`(ID)、`requestid`(请求id)、`workflowid`(流程id)、`nodeid`(节点id) 等共 11 个字段 | [workflow_requestlogatinfo.md](./tables/工作流程/workflow_requestlogatinfo.md) |
 | 177 | `workflow_requestlogsequence` | 1 | `requestlogid`(当前最大工作流日志id) | [workflow_requestlogsequence.md](./tables/工作流程/workflow_requestlogsequence.md) |
@@ -593,7 +608,7 @@
 
 > 本模块共收录 `136` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `ESB_EVENT_LOG` | 7 | `batchkey`(批次号)、`eventid`(事件标识)、`eventtime`(触发时间)、`eventsate`(触发状态) 等共 7 个字段 | [ESB_EVENT_LOG.md](./tables/集成模块/ESB_EVENT_LOG.md) |
 | 2 | `Int_FieldMapper` | 7 | `id`(标识)、`scope`(配置类型)、`type`(字段类型)、`src_field_inf`(源字段配置) 等共 7 个字段 | [Int_FieldMapper.md](./tables/集成模块/Int_FieldMapper.md) |
@@ -736,7 +751,7 @@
 
 > 本模块共收录 `133` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `FnaCostCenter` | 7 | `id`(主键)、`supfccid`(上级id)、`type`(类型)、`name`(名称) 等共 7 个字段 | [FnaCostCenter.md](./tables/财务管理/FnaCostCenter.md) |
 | 2 | `FnaCostCenterDtl` | 5 | `objvalue`(自定义浏览按钮id)、`id`(主键)、`fccid`(成本中心id)、`type`(关联对象类型) 等共 5 个字段 | [FnaCostCenterDtl.md](./tables/财务管理/FnaCostCenterDtl.md) |
@@ -876,7 +891,7 @@
 
 > 本模块共收录 `120` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `Mode_boarditemorder_xxx` | 5 | `id`(id)、`boardid`(看板id)、`dataid`(数据id)、`groupid`(分组id) 等共 5 个字段 | [Mode_boarditemorder_xxx.md](./tables/表单建模/Mode_boarditemorder_xxx.md) |
 | 2 | `Modedatashare_XXX_set` | 23 | `browsersharetype`(浏览框权限类型)、`id`(id)、`sourceid`(数据id)、`righttype`(权限级别) 等共 23 个字段 | [Modedatashare_XXX_set.md](./tables/表单建模/Modedatashare_XXX_set.md) |
@@ -1003,7 +1018,7 @@
 
 > 本模块共收录 `103` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `LgcStockInOutDetail` | 11 | `id`(id)、`inoutid`(进出库id)、`assetid`(产品id)、`batchmark`(批量标记) 等共 11 个字段 | [LgcStockInOutDetail.md](./tables/客户管理/LgcStockInOutDetail.md) |
 | 2 | `LgcStockMode` | 5 | `id`(id)、`modename`(名称)、`modetype`(类型)、`modestatus`(状态) 等共 5 个字段 | [LgcStockMode.md](./tables/客户管理/LgcStockMode.md) |
@@ -1113,7 +1128,7 @@
 
 > 本模块共收录 `92` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `codedetail` | 5 | `id`(ID)、`codemainid`(对应主表id)、`showname`(显示名称)、`showtype`(显示类型) 等共 5 个字段 | [codedetail.md](./tables/知识管理/codedetail.md) |
 | 2 | `codemain` | 11 | `id`(ID)、`titleimg`(编码图像)、`titlename`(编码主题)、`isuse`(是否有效) 等共 11 个字段 | [codemain.md](./tables/知识管理/codemain.md) |
@@ -1133,7 +1148,7 @@
 | 16 | `docchangesetting` | 19 | `autosend`(是否自动发送)、`autosendtime`(自动发送间隔分钟)、`autoreceive`(是否自动发送)、`autoreceivetime`(自动接收间隔分钟) 等共 19 个字段 | [docchangesetting.md](./tables/知识管理/docchangesetting.md) |
 | 17 | `docconditiondetail` | 3 | `mouldid`(模板id)、`name`(名称)、`value`(值) | [docconditiondetail.md](./tables/知识管理/docconditiondetail.md) |
 | 18 | `docconditionmould` | 6 | `id`(id)、`name`(用户名)、`userid`(用户id)、`usertype`(用户类型) 等共 6 个字段 | [docconditionmould.md](./tables/知识管理/docconditionmould.md) |
-| 19 | `docdetail` | 53 | `sumdownload`(下载量)、`accessorycount`(附件个数)、`replaydoccount`(回复文档的数量)、`usertype`(用户类型) 等共 53 个字段 | [docdetail.md](./tables/知识管理/docdetail.md) |
+| 19 | `docdetail` ⚠️ | 53 | `sumdownload`(下载量)、`accessorycount`(附件个数)、`replaydoccount`(回复文档的数量)、`usertype`(用户类型) 等共 53 个字段 | [docdetail.md](./tables/知识管理/docdetail.md) |
 | 20 | `docdetailcontent` | 2 | `docid`(文档id)、`doccontent`(文档内容) | [docdetailcontent.md](./tables/知识管理/docdetailcontent.md) |
 | 21 | `docdetaillog` | 5 | `id`(ID)、`docid`(文档id)、`docsubject`(文档主题)、`doccreater`(文档创建者) 等共 5 个字段 | [docdetaillog.md](./tables/知识管理/docdetaillog.md) |
 | 22 | `docdocumentsignature` | 7 | `id`(ID)、`versionid`(签章的文档具体的版本)、`markname`(签章名称)、`username`(用户名称) 等共 7 个字段 | [docdocumentsignature.md](./tables/知识管理/docdocumentsignature.md) |
@@ -1163,7 +1178,7 @@
 | 46 | `docreceiveunit` | 14 | `unitcode`(编码)、`id`(收文单位id)、`receiveunitname`(收文单位名称)、`superiorunitid`(上级单位id) 等共 14 个字段 | [docreceiveunit.md](./tables/知识管理/docreceiveunit.md) |
 | 47 | `docsearchdefine` | 22 | `userid`(用户id)、`subjectdef`(主题字段是否为基本字段)、`contentdef`(内容字段是否为基本字段)、`replydef`(回复字段是否为基本字段) 等共 22 个字段 | [docsearchdefine.md](./tables/知识管理/docsearchdefine.md) |
 | 48 | `docsearchmould` | 43 | `id`(查询模板id)、`mouldname`(查询模板描述)、`userid`(用户id)、`docsubject`(文档主题) 等共 43 个字段 | [docsearchmould.md](./tables/知识管理/docsearchmould.md) |
-| 49 | `docseccategory` | 13 | `seccategorytype`(目录类型)、`uploadext`(附件上传限制格式)、`pushoperation`(推送操作)、`pushways`(推送方式) 等共 13 个字段 | [docseccategory.md](./tables/知识管理/docseccategory.md) |
+| 49 | `docseccategory` ⚠️ | 13 | `seccategorytype`(目录类型)、`uploadext`(附件上传限制格式)、`pushoperation`(推送操作)、`pushways`(推送方式) 等共 13 个字段 | [docseccategory.md](./tables/知识管理/docseccategory.md) |
 | 50 | `docseccategoryapprovewfdetail` | 7 | `id`(ID)、`seccategoryid`(文挡子目录id)、`approvetype`(审批类型)、`workflowid`(审批流程) 等共 7 个字段 | [docseccategoryapprovewfdetail.md](./tables/知识管理/docseccategoryapprovewfdetail.md) |
 | 51 | `docseccategorycoderseq` | 7 | `id`(ID)、`sequence`(流水号)、`yearseq`(如果日期单独流水且为年的情况下将使用这里的信息)、`monthseq`(如果日期单独流水且为月的情况下将使用这里的信息) 等共 7 个字段 | [docseccategorycoderseq.md](./tables/知识管理/docseccategorycoderseq.md) |
 | 52 | `docseccategorycussearch` | 8 | `id`(ID)、`viewindex`(显示顺序)、`visible`(是否启用)、`seccategoryid`(文档目录id) 等共 8 个字段 | [docseccategorycussearch.md](./tables/知识管理/docseccategorycussearch.md) |
@@ -1212,7 +1227,7 @@
 
 > 本模块共收录 `53` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `favourite` | 7 | `id`(id)、`resourceid`(人员id)、`adddate`(加入时间)、`favouritename`(名称) 等共 7 个字段 | [favourite.md](./tables/门户管理/favourite.md) |
 | 2 | `hp_element_picturesize` | 6 | `id`(主键)、`eid`(元素id)、`tabid`(tab页id)、`pictureheight`(图片高度) 等共 6 个字段 | [hp_element_picturesize.md](./tables/门户管理/hp_element_picturesize.md) |
@@ -1272,7 +1287,7 @@
 
 > 本模块共收录 `49` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `bill_docprintapply` | 8 | `id`(编号)、`resourceid`(资源编号)、`deptid`(单位编号)、`relateddocid`(相关文档编号) 等共 8 个字段 | [bill_docprintapply.md](./tables/公文管理/bill_docprintapply.md) |
 | 2 | `bill_innersenddoc` | 28 | `id`(编号)、`requestid`(请求编号)、`resourceid`(资源编号)、`departmentid`(部门编号) 等共 28 个字段 | [bill_innersenddoc.md](./tables/公文管理/bill_innersenddoc.md) |
@@ -1328,7 +1343,7 @@
 
 > 本模块共收录 `48` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `bill_meeting_dt1_topic` | 7 | `id`(ID)、`mainid`(对应流程主表id)、`subject`(议程主题)、`projid`(相关项目) 等共 7 个字段 | [bill_meeting_dt1_topic.md](./tables/会议管理/bill_meeting_dt1_topic.md) |
 | 2 | `bill_meeting_dt2_service` | 5 | `id`(主键)、`mainid`(会议id)、`items`(服务项目)、`otheritem`(其他服务) 等共 5 个字段 | [bill_meeting_dt2_service.md](./tables/会议管理/bill_meeting_dt2_service.md) |
@@ -1383,7 +1398,7 @@
 
 > 本模块共收录 `47` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `govern_actionconfig` | 8 | `id`(id)、`categoryid`(类型id)、`actiontype`(动作类型)、`actionsetid`(action id) 等共 8 个字段 | [govern_actionconfig.md](./tables/政务应用/govern_actionconfig.md) |
 | 2 | `govern_actionsetting` | 6 | `id`(id)、`categoryid`(类型id)、`actiontype`(动作类型)、`triggertype`(触发方式) 等共 6 个字段 | [govern_actionsetting.md](./tables/政务应用/govern_actionsetting.md) |
@@ -1437,7 +1452,7 @@
 
 > 本模块共收录 `47` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `prj_code` | 10 | `id`(标识id)、`isuse`(编码方式)、`subcompanyflow`(分部流水)、`departmentflow`(部门流水) 等共 10 个字段 | [prj_code.md](./tables/项目管理/prj_code.md) |
 | 2 | `prj_codeseq` | 13 | `id`(标识id)、`sequenceid`(流水号)、`subcompanyid`(分部)、`departmentid`(部门) 等共 13 个字段 | [prj_codeseq.md](./tables/项目管理/prj_codeseq.md) |
@@ -1491,7 +1506,7 @@
 
 > 本模块共收录 `46` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `fileclean` | 4 | `imagefileid`(附件id)、`comefrom`(附件来源)、`filecreatedate`(附件创建日期)、`filecreatetime`(附件创建时间) | [fileclean.md](./tables/即时通讯-EMESSAGE/fileclean.md) |
 | 2 | `historymsg` | 13 | `fullamount`(客户端发的完整消息体)、`msgid`(消息id)、`id`(自增id)、`fromuserid`(消息发送方) 等共 13 个字段 | [historymsg.md](./tables/即时通讯-EMESSAGE/historymsg.md) |
@@ -1544,7 +1559,7 @@
 
 > 本模块共收录 `36` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `KQ_ATT_VACATION` | 14 | `id`(主键id)、`requestid`(requestid)、`dataid`(主表的话对应的id)、`detailid`(明细表的话对应的id) 等共 14 个字段 | [KQ_ATT_VACATION.md](./tables/E9新版考勤表结构/KQ_ATT_VACATION.md) |
 | 2 | `KQ_HolidaySet` | 6 | `ID`(主键ID)、`groupId`(考勤组的ID)、`holidayDesc`(节假日描述信息)、`holidayDate`(节假日日期) 等共 6 个字段 | [KQ_HolidaySet.md](./tables/E9新版考勤表结构/KQ_HolidaySet.md) |
@@ -1587,7 +1602,7 @@
 
 > 本模块共收录 `33` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `WorkPlanList_Group` | 9 | `id`(主键)、`name`(名称)、`labelid`(名称的标签id)、`type`(类型) 等共 9 个字段 | [WorkPlanList_Group.md](./tables/日程管理/WorkPlanList_Group.md) |
 | 2 | `WorkPlanWeekList_Group` | 6 | `id`(主键)、`name`(数据范围名称)、`groupvalue`(数据范围人员ids)、`workplantype`(日程类型ids) 等共 6 个字段 | [WorkPlanWeekList_Group.md](./tables/日程管理/WorkPlanWeekList_Group.md) |
@@ -1627,7 +1642,7 @@
 
 > 本模块共收录 `32` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `bill_meeting` | 41 | `remindbeforestart`(是否开始前提醒)、`remindbeforeend`(是否结束前提醒)、`remindtimesbeforestart`(开始前时间)、`remindtimesbeforeend`(结束前时间) 等共 41 个字段 | [bill_meeting.md](./tables/其他/bill_meeting.md) |
 | 2 | `clustersetting` | 7 | `id`(ID)、`ipaddress`(ip地址)、`httpaddress`(http访问地址)、`deployaddress`(部署地址) 等共 7 个字段 | [clustersetting.md](./tables/其他/clustersetting.md) |
@@ -1666,7 +1681,7 @@
 
 > 本模块共收录 `32` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `docmailmould` | 8 | `id`(邮件模板id)、`mouldname`(文档模板描述)、`isdefault`(是否是默认)、`mouldtext`(文档模板html) 等共 8 个字段 | [docmailmould.md](./tables/邮件模块/docmailmould.md) |
 | 2 | `email_label` | 6 | `id`(ID)、`accountid`(该标签归属用户id)、`name`(标签名称)、`color`(标签颜色) 等共 6 个字段 | [email_label.md](./tables/邮件模块/email_label.md) |
@@ -1705,7 +1720,7 @@
 
 > 本模块共收录 `29` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `appfieldui` | 9 | `id`(主键)、`formid`(表单id)、`appid`(应用id)、`fieldid`(字段id) 等共 9 个字段 | [appfieldui.md](./tables/移动引擎/appfieldui.md) |
 | 2 | `appformui对应表` | 14 | `id`(主键)、`formid`(表单id)、`uicontent`(ui内容)、`uitype`(ui类型) 等共 14 个字段 | [appformui对应表.md](./tables/移动引擎/appformui对应表.md) |
@@ -1741,7 +1756,7 @@
 
 > 本模块共收录 `27` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `cpt_browdef` | 8 | `fieldid`(字段id)、`fieldkind`(字段类型)、`iscondition`(作为查询条件)、`iscondition_type`(条件类型) 等共 8 个字段 | [cpt_browdef.md](./tables/资产管理/cpt_browdef.md) |
 | 2 | `cpt_cptcardgroup` | 8 | `id`(标识id)、`groupname`(分组名称)、`grouplabel`(分组标签)、`dsporder`(分组顺序) 等共 8 个字段 | [cpt_cptcardgroup.md](./tables/资产管理/cpt_cptcardgroup.md) |
@@ -1775,7 +1790,7 @@
 
 > 本模块共收录 `26` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `blog_app` | 6 | `id`(主键id)、`name`(应用名称)、`isactive`(是否激活)、`apptype`(应用类型) 等共 6 个字段 | [blog_app.md](./tables/工作微博/blog_app.md) |
 | 2 | `blog_appdatas` | 7 | `id`(主键id)、`userid`(人员id)、`workdate`(工作日)、`createdate`(创建日期) 等共 7 个字段 | [blog_appdatas.md](./tables/工作微博/blog_appdatas.md) |
@@ -1808,7 +1823,7 @@
 
 > 本模块共收录 `21` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `cotype_sharemanager` | 11 | `id`(id)、`cotypeid`(协作区类型id)、`sharetype`(负责人类型)、`sharevalue`(负责人) 等共 11 个字段 | [cotype_sharemanager.md](./tables/协作管理/cotype_sharemanager.md) |
 | 2 | `cotype_sharemembers` | 11 | `id`(id)、`cotypeid`(协作区类型id)、`sharetype`(负责人类型)、`sharevalue`(负责人) 等共 11 个字段 | [cotype_sharemembers.md](./tables/协作管理/cotype_sharemembers.md) |
@@ -1836,7 +1851,7 @@
 
 > 本模块共收录 `17` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `autoconfigkey` | 2 | `id`(ID)、`time`(时间戳) | [autoconfigkey.md](./tables/版本升级/autoconfigkey.md) |
 | 2 | `autoconfiglog` | 8 | `id`(ID)、`configdetailid`(主表ID)、`configtype`(配置类型)、`filename`(文件名) 等共 8 个字段 | [autoconfiglog.md](./tables/版本升级/autoconfiglog.md) |
@@ -1860,7 +1875,7 @@
 
 > 本模块共收录 `17` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `bill_votingapprove` | 3 | `id`(id)、`votingname`(votingid)、`requestid`(流程id) | [bill_votingapprove.md](./tables/网上调查/bill_votingapprove.md) |
 | 2 | `voting` | 35 | `subcompanyid`(分部id)、`id`(主键id)、`subject`(主题)、`detail`(废弃字段) 等共 35 个字段 | [voting.md](./tables/网上调查/voting.md) |
@@ -1884,7 +1899,7 @@
 
 > 本模块共收录 `11` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `sms_interface` | 9 | `id`(主键id)、`name`(接口相关名称)、`keyword`(关键字)、`type`(接口类型) 等共 9 个字段 | [sms_interface.md](./tables/短信模块/sms_interface.md) |
 | 2 | `sms_message` | 16 | `id`(主键id)、`message`(短信内容)、`recievenumber`(接收短信号码)、`sendnumber`(发送短信号码) 等共 16 个字段 | [sms_message.md](./tables/短信模块/sms_message.md) |
@@ -1902,7 +1917,7 @@
 
 > 本模块共收录 `7` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `CarInfo` | 14 | `id`(id)、`carNo`(车牌号)、`carType`(车辆类型)、`factoryNo`(生产型号) 等共 14 个字段 | [CarInfo.md](./tables/车辆管理/CarInfo.md) |
 | 2 | `CarUseApprove` | 20 | `id`(id)、`carid`(车辆信息)、`driver`(司机)、`userid`(使用人) 等共 20 个字段 | [CarUseApprove.md](./tables/车辆管理/CarUseApprove.md) |
@@ -1916,7 +1931,7 @@
 
 > 本模块共收录 `6` 张数据表。
 
-| 序号 | 数据库表名 | 字段数 | 关键字段预览 | 详细定义文件 |
+| 序号 | 数据库表名 | 文档收录字段数 | 关键字段预览 | 详细定义文件 |
 | :---: | :--- | :---: | :--- | :--- |
 | 1 | `fullsearch_hotkeys` | 5 | `id`(主键)、`userid`(用户id)、`hotkey`(搜索关键字)、`intcount`(统计次数) 等共 5 个字段 | [fullsearch_hotkeys.md](./tables/微搜/fullsearch_hotkeys.md) |
 | 2 | `fullsearch_resultsub` | 13 | `id`(主键)、`createdate`(创建日期)、`createtime`(创建时间)、`searchkey`(搜索关键字) 等共 13 个字段 | [fullsearch_resultsub.md](./tables/微搜/fullsearch_resultsub.md) |

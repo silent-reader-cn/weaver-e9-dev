@@ -123,7 +123,8 @@ PY="<你的 python3 路径>"
 "$PY" tools/selftest.py
 ```
 
-27 项检查，逐条验证 538 接口 / 1699 表 / 138 方法的可召回性与内容完整性。
+33 项检查，逐条验证 538 接口 / 1699 表 / 138 方法的可召回性、内容完整性，
+以及表结构可信度标注的一致性。
 
 ### 4. 调用 E9 接口
 
@@ -160,6 +161,7 @@ weaver-e9-dev/
 │   │   └── auth_quickstart.md     #   避坑红线速查
 │   ├── 01_database/               # 【块一】数据库
 │   │   ├── _INDEX.md              #   1,699 张表总索引（模块统计 + 分模块清单）
+│   │   ├── _QUALITY.md            #   ⚠️ 数据质量报告：已确证不完整的表清单
 │   │   ├── core_tables.md         #   核心表全景字典
 │   │   ├── sql_cookbook.md        #   高频业务 SQL 模版
 │   │   └── tables/<26 模块>/      #   1,699 个表结构定义
@@ -186,8 +188,9 @@ weaver-e9-dev/
     ├── convert_apis.py            #   一次性：oa-dev 接口 → 本仓库文档范式
     ├── build_blocks.py            #   一次性：数据库/前端/集成内容归位
     ├── normalize_tables.py        #   一次性：统一两套表结构列格式
+    ├── audit_tables.py            #   表结构可信度审计 + 标注 + 生成 _QUALITY.md
     ├── deprecate_original_repos.py #  一次性：给两个原仓库 README 插入归档提示
-    └── selftest.py                #   检索脚本自检（27 项）
+    └── selftest.py                #   自检（33 项）
 ```
 
 ---
@@ -241,6 +244,29 @@ weaver-e9-dev/
 | 已保留 | Node.js / Python 鉴权 SDK、全部 JS 与 Java 示例 |
 
 ### 关于「1,699 张表」
+
+> [!WARNING]
+> **表结构文档是「部分收录」，不是完整表结构。**
+>
+> `references/01_database/tables/` 下的文档来自上游数据源，**很多表只记录了升级补丁新增的列**，
+> 缺少 `CREATE TABLE` 的基础列。直接依据它们编写 SQL 会出错：
+>
+> | 表 | 文档收录 | 实际情况 |
+> |---|---:|---|
+> | `workflow_requestlog` | **1 列** | 本仓库 `core_tables.md` 明确写了它有 `requestid`/`nodeid`/`operator`/`remark`/`logtype` |
+> | `workflow_requestbase` | 19 列 | 缺 `requestid`（主键）、`workflowid`、`status`、`currentnodetype` |
+> | `hrmresource` | 24 列 | 缺 `id`、`lastname`、`loginid`、`departmentid` 等 9 个基础列 |
+>
+> **写 SQL 前请先核对真实库：**
+>
+> ```sql
+> SELECT column_name, data_type, data_length, nullable
+> FROM user_tab_columns WHERE table_name = 'WORKFLOW_REQUESTBASE' ORDER BY column_id;
+> ```
+>
+> - 文档中的 `文档收录字段数` 是**本文件记录了几行**，不等于表的真实列数。
+> - 检索脚本会自动带出警告，无需自行排查。
+> - 已确证不完整的表清单与判定依据： [`_QUALITY.md`](./references/01_database/_QUALITY.md)。
 
 `1,699` 是**表定义文件数**；去重后为 **1,687 张唯一表**。有 12 个表名跨模块重复，
 全部集中在 `E9新版考勤表结构` 与 `人力资源` 之间（kq_* 考勤表）。

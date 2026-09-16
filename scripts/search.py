@@ -113,7 +113,11 @@ def iter_api():
 
 
 def iter_db():
-    """块一：每个表定义文件为一条记录，表名/模块/字段全部纳入检索。"""
+    """块一：每个表定义文件为一条记录，表名/模块/字段全部纳入检索。
+
+    若表文档带有 `tools/audit_tables.py` 写入的「表结构不完整」警告，
+    则把缺失列直接带进结果，避免使用方误信残缺的表结构去写 SQL。
+    """
     pattern = os.path.join(REFS, "01_database", "tables", "**", "*.md")
     for fp in sorted(glob.glob(pattern, recursive=True)):
         rel = os.path.relpath(fp, os.path.join(REFS, "01_database"))
@@ -124,11 +128,20 @@ def iter_db():
         table = m.group(1) if m else os.path.splitext(os.path.basename(fp))[0]
         mm = re.search(r"所属模块\*\*\s*[:：]\s*`([^`]+)`", text)
         module = mm.group(1) if mm else os.path.basename(os.path.dirname(fp))
-        mc = re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
+        mc = re.search(r"文档收录字段数\*\*\s*[:：]\s*`?(\d+)`?", text) or \
+            re.search(r"字段总数\*\*\s*[:：]\s*`?(\d+)`?", text)
         ncol = mc.group(1) if mc else ""
-        meta = "模块: %s   字段数: %s" % (module, ncol or "-")
+        meta = "模块: %s   文档收录字段数: %s" % (module, ncol or "-")
+
+        warn = ""
+        mw = re.search(r"缺少本表的基础列：(.+)", text)
+        if mw:
+            warn = ("⚠️ 本表文档不完整，缺基础列：%s" % mw.group(1).strip() +
+                    "\n     请勿直接据此编写 SQL；真实结构见文件顶部 SQL 或 " +
+                    "references/01_database/_QUALITY.md")
+
         yield {"scope": "db", "file": rel.replace("\\", "/"), "title": table,
-               "meta": meta, "module": module, "body": text}
+               "meta": meta, "module": module, "body": text, "warn": warn}
 
 
 def iter_js():
@@ -185,6 +198,9 @@ def render(rec, full, max_chars):
     out.append("  [%s] %s" % (SCOPE_LABEL[rec["scope"]], rec["file"]))
     if rec.get("meta"):
         out.append("  %s" % rec["meta"])
+    if rec.get("warn"):
+        for i, line in enumerate(rec["warn"].split("\n")):
+            out.append(("  " if i == 0 else "  ") + line.strip())
     body = rec["body"].strip("\n")
     if body.strip():
         if not full and len(body) > max_chars:
@@ -275,6 +291,12 @@ def main(argv):
     else:
         print("找到 %d 条匹配（关键词: %s ；范围: %s）：\n"
               % (total, " ".join(terms), scope_txt))
+
+    # 块一 有全局性的数据质量限制，必须显式告知，避免误信残缺表结构
+    if "db" in scopes and any(r["scope"] == "db" for r in results):
+        print("> 注意：表结构文档为**部分收录**，可能缺列；`文档收录字段数` 只是本文件记录的行数，")
+        print("> 不等于表的真实列数。写 SQL 前请用 user_tab_columns 核对，详见 "
+              "references/01_database/_QUALITY.md\n")
     for r in results:
         if brief:
             print("[%s] %s | %s" % (SCOPE_LABEL[r["scope"]], r["title"], r["file"]))
